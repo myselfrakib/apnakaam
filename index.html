@@ -350,7 +350,7 @@
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 // Redirect to dashboard if already logged in
-                window.location.href = 'agenthomepage.html';
+                window.location.href = 'agenthome.html';
             }
         });
 
@@ -409,7 +409,7 @@
                 
                 // Redirect to dashboard
                 setTimeout(() => {
-                    window.location.href = 'agenthomepage.html';
+                    window.location.href = 'agenthome.html';
                 }, 1000);
             } catch (error) {
                 console.error('Login error:', error);
@@ -472,7 +472,7 @@
                 
                 // Redirect to dashboard
                 setTimeout(() => {
-                    window.location.href = 'agenthomepage.html';
+                    window.location.href = 'agenthome.html';
                 }, 1500);
             } catch (error) {
                 console.error('Signup error:', error);
