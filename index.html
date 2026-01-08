@@ -242,7 +242,7 @@
             letter-spacing: 0.5px;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 14px 18px;
             border: 2px solid #E5E5E5;
@@ -252,7 +252,7 @@
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
@@ -1045,51 +1045,7 @@
         let currentUser = null;
         let confirmationResult = null;
         let selectedWorker = null;
-        let isNewUser = false;
         let recaptchaVerifier = null;
-        let recaptchaInitialized = false;
-
-        // Initialize reCAPTCHA (lazy - only when needed)
-        function initializeRecaptcha() {
-            return new Promise((resolve, reject) => {
-                if (recaptchaVerifier && recaptchaInitialized) {
-                    resolve(recaptchaVerifier);
-                    return;
-                }
-
-                try {
-                    const container = document.getElementById('recaptcha-container');
-                    if (!container) {
-                        reject(new Error('reCAPTCHA container not found'));
-                        return;
-                    }
-
-                    recaptchaVerifier = new RecaptchaVerifier(auth, container, {
-                        'size': 'invisible',
-                        'callback': (response) => {
-                            console.log('reCAPTCHA verified successfully');
-                        },
-                        'expired-callback': () => {
-                            console.log('reCAPTCHA expired');
-                            recaptchaInitialized = false;
-                        }
-                    });
-
-                    recaptchaVerifier.render()
-                        .then(() => {
-                            recaptchaInitialized = true;
-                            resolve(recaptchaVerifier);
-                        })
-                        .catch((error) => {
-                            console.error('reCAPTCHA render error:', error);
-                            reject(error);
-                        });
-                } catch (error) {
-                    console.error('reCAPTCHA initialization error:', error);
-                    reject(error);
-                }
-            });
-        }
 
         // Auth state listener
         onAuthStateChanged(auth, async (user) => {
@@ -1111,7 +1067,6 @@
                     loadBookings();
                 } else {
                     // New user - show signup form
-                    isNewUser = true;
                     showSignupStep();
                 }
             } else {
@@ -1210,15 +1165,22 @@
             sendBtn.textContent = 'Sending...';
             
             try {
-                showAuthMessage('Initializing...', 'success');
+                showAuthMessage('Initializing verification...', 'success');
                 
-                // Initialize reCAPTCHA
-                const appVerifier = await initializeRecaptcha();
+                // Initialize reCAPTCHA if not already done
+                if (!recaptchaVerifier) {
+                    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                        'size': 'invisible',
+                        'callback': (response) => {
+                            console.log('reCAPTCHA verified');
+                        }
+                    });
+                }
                 
                 showAuthMessage('Sending OTP...', 'success');
                 
                 // Send OTP
-                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
                 
                 document.getElementById('phoneStep').style.display = 'none';
                 document.getElementById('otpStep').style.display = 'block';
@@ -1232,7 +1194,7 @@
                 } else if (error.code === 'auth/too-many-requests') {
                     message += 'Too many requests. Please try again later.';
                 } else if (error.code === 'auth/quota-exceeded') {
-                    message += 'SMS quota exceeded.';
+                    message += 'SMS quota exceeded. Please try again later.';
                 } else {
                     message += error.message;
                 }
@@ -1241,13 +1203,8 @@
                 
                 // Reset reCAPTCHA on error
                 if (recaptchaVerifier) {
-                    try {
-                        await recaptchaVerifier.clear();
-                    } catch (e) {
-                        console.error('Error clearing reCAPTCHA:', e);
-                    }
+                    recaptchaVerifier.clear();
                     recaptchaVerifier = null;
-                    recaptchaInitialized = false;
                 }
             } finally {
                 sendBtn.disabled = false;
@@ -1334,7 +1291,8 @@
                         <div class="worker-card">
                             <img src="${worker.photoUrl || 'https://via.placeholder.com/300x240?text=No+Photo'}" 
                                  alt="${worker.name}" 
-                                 class="worker-photo">
+                                 class="worker-photo"
+                                 onerror="this.src='https://via.placeholder.com/300x240?text=No+Photo'">
                             <div class="worker-info">
                                 <div class="worker-header">
                                     <div>
@@ -1445,7 +1403,7 @@
                             </div>
                             <div class="booking-worker">
                                 <div class="booking-worker-info">
-                                    <h3>${booking.workerName}</h3>
+                                    <h3>${booking.workerName || 'Worker TBD'}</h3>
                                     <div class="booking-worker-service">${booking.serviceType}</div>
                                 </div>
                             </div>
@@ -1518,7 +1476,7 @@
                     customerPhone: currentUser.phoneNumber,
                     workerId: selectedWorker.id,
                     workerName: selectedWorker.name,
-                    agentId: selectedWorker.agentId,
+                    agentId: selectedWorker.agentId || '',
                     serviceType: selectedWorker.serviceType,
                     date: document.getElementById('bookingDate').value,
                     time: document.getElementById('bookingTime').value,
@@ -1537,6 +1495,7 @@
                 
                 setTimeout(() => {
                     closeBookingModal();
+                    switchTab('bookings');
                     loadBookings();
                 }, 2000);
             } catch (error) {
