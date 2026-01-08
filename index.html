@@ -825,6 +825,9 @@
     </style>
 </head>
 <body>
+    <!-- Invisible reCAPTCHA Container -->
+    <div id="recaptcha-container"></div>
+
     <!-- Top Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -864,7 +867,7 @@
                     <label>Phone Number</label>
                     <input type="tel" id="phoneInput" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
                 </div>
-                <button class="btn-primary" onclick="sendOTP()">Send OTP</button>
+                <button class="btn-primary" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
             </div>
 
             <!-- OTP Step -->
@@ -1035,7 +1038,6 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        auth.useDeviceLanguage();
         const database = getDatabase(app);
 
         let allWorkers = [];
@@ -1044,30 +1046,23 @@
         let confirmationResult = null;
         let selectedWorker = null;
         let isNewUser = false;
-
-        // Initialize RecaptchaVerifier
         let recaptchaVerifier = null;
-        let recaptchaWidgetId = null;
 
-        function setupRecaptcha() {
+        // Initialize reCAPTCHA on page load
+        window.addEventListener('load', function() {
             if (!recaptchaVerifier) {
-                try {
-                    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                        'size': 'invisible',
-                        'callback': (response) => {
-                            console.log('reCAPTCHA verified');
-                        },
-                        'expired-callback': () => {
-                            console.log('reCAPTCHA expired');
-                        }
-                    });
-                    recaptchaVerifier = window.recaptchaVerifier;
-                } catch (error) {
-                    console.error('reCAPTCHA setup error:', error);
-                }
+                recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    'size': 'invisible',
+                    'callback': (response) => {
+                        console.log('reCAPTCHA verified successfully');
+                    },
+                    'expired-callback': () => {
+                        console.log('reCAPTCHA expired');
+                    }
+                });
+                recaptchaVerifier.render();
             }
-            return recaptchaVerifier;
-        }
+        });
 
         // Auth state listener
         onAuthStateChanged(auth, async (user) => {
@@ -1168,13 +1163,14 @@
                 document.getElementById('browseTab').classList.add('active');
             } else if (tabName === 'bookings') {
                 document.getElementById('bookingsTab').classList.add('active');
-                loadBookings(); // Refresh bookings when switching to tab
+                loadBookings();
             }
         };
 
         // Send OTP
         window.sendOTP = async function() {
             const phone = document.getElementById('phoneInput').value.trim();
+            const sendBtn = document.getElementById('sendOtpBtn');
             
             if (!/^[0-9]{10}$/.test(phone)) {
                 showAuthMessage('Please enter a valid 10-digit phone number', 'error');
@@ -1183,18 +1179,18 @@
 
             const fullPhone = '+91' + phone;
             
+            sendBtn.disabled = true;
+            sendBtn.textContent = 'Sending...';
+            
             try {
                 showAuthMessage('Sending OTP...', 'success');
                 
-                // Setup reCAPTCHA
-                const appVerifier = setupRecaptcha();
-                
-                if (!appVerifier) {
-                    throw new Error('Failed to initialize reCAPTCHA');
+                // Use the pre-initialized reCAPTCHA verifier
+                if (!recaptchaVerifier) {
+                    throw new Error('reCAPTCHA not initialized');
                 }
                 
-                // Send OTP
-                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
                 
                 document.getElementById('phoneStep').style.display = 'none';
                 document.getElementById('otpStep').style.display = 'block';
@@ -1208,7 +1204,7 @@
                 } else if (error.code === 'auth/too-many-requests') {
                     message += 'Too many requests. Please try again later.';
                 } else if (error.code === 'auth/quota-exceeded') {
-                    message += 'SMS quota exceeded. Please try again tomorrow.';
+                    message += 'SMS quota exceeded.';
                 } else {
                     message += error.message;
                 }
@@ -1219,12 +1215,21 @@
                 if (recaptchaVerifier) {
                     try {
                         recaptchaVerifier.clear();
+                        // Reinitialize
+                        recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                            'size': 'invisible',
+                            'callback': (response) => {
+                                console.log('reCAPTCHA verified');
+                            }
+                        });
+                        recaptchaVerifier.render();
                     } catch (e) {
-                        console.error('Error clearing reCAPTCHA:', e);
+                        console.error('Error resetting reCAPTCHA:', e);
                     }
-                    recaptchaVerifier = null;
-                    window.recaptchaVerifier = null;
                 }
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.textContent = 'Send OTP';
             }
         };
 
@@ -1510,7 +1515,7 @@
                 
                 setTimeout(() => {
                     closeBookingModal();
-                    loadBookings(); // Refresh bookings list
+                    loadBookings();
                 }, 2000);
             } catch (error) {
                 console.error('Error creating booking:', error);
@@ -1536,13 +1541,6 @@
                 console.error('Error logging out:', error);
             }
         };
-
-        // Add invisible container for reCAPTCHA (must be in DOM before use)
-        document.addEventListener('DOMContentLoaded', function() {
-            const recaptchaContainer = document.createElement('div');
-            recaptchaContainer.id = 'recaptcha-container';
-            document.body.appendChild(recaptchaContainer);
-        });
     </script>
 </body>
 </html>
