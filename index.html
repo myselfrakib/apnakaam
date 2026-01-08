@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apna Kaam - Trusted Home Help Services in Kolkata</title>
+    <title>Book Service - Apna Kaam</title>
     <style>
         * {
             margin: 0;
@@ -12,602 +12,827 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #fff;
-            color: #333;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
         }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 20px 100px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .hero .tagline {
-            font-size: 24px;
-            margin-bottom: 12px;
-            font-weight: 500;
-        }
-
-        .hero .subtitle {
-            font-size: 16px;
-            opacity: 0.95;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
+        /* Top Bar */
+        .top-bar {
             background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            font-size: 24px;
+            font-weight: 700;
             color: #667eea;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        .btn-secondary {
-            background: rgba(255,255,255,0.2);
+        .phone-display {
+            font-size: 14px;
+            color: #666;
+            background: #f0f0f0;
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .logout-btn {
+            background: #dc3545;
             color: white;
-            padding: 16px 40px;
-            border: 2px solid white;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: 600;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            font-size: 14px;
         }
 
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.3);
+        /* Auth Modal */
+        .auth-modal {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .auth-modal.hidden {
+            display: none;
+        }
+
+        .auth-box {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .auth-box h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-submit:hover {
+            background: #5568d3;
+        }
+
+        .btn-submit:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .message.error {
+            background: #fee;
+            color: #c00;
+        }
+
+        .message.success {
+            background: #efe;
+            color: #0a0;
         }
 
         /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
 
-        /* Section */
-        .section {
-            padding: 80px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #333;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 48px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 32px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .service-card {
+        /* Filters */
+        .filters {
             background: white;
-            border-radius: 16px;
-            padding: 32px;
-            text-align: center;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
 
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
         }
 
-        .service-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
+        .filter-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        .service-card h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
+        .filter-group select,
+        .filter-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Workers Grid */
+        .workers-section h2 {
+            margin-bottom: 20px;
             color: #333;
         }
 
-        .service-card p {
-            font-size: 15px;
+        .workers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .worker-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+
+        .worker-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+        }
+
+        .worker-photo {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .worker-info {
+            padding: 16px;
+        }
+
+        .worker-name {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .worker-detail {
+            font-size: 14px;
             color: #666;
-            margin-bottom: 24px;
-            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+
+        .worker-detail strong {
+            color: #333;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        .badge.available {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge.unavailable {
+            background: #f8d7da;
+            color: #721c24;
         }
 
         .btn-book {
+            width: 100%;
             background: #667eea;
             color: white;
-            padding: 12px 32px;
             border: none;
+            padding: 12px;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            margin-top: 12px;
         }
 
         .btn-book:hover {
             background: #5568d3;
         }
 
-        /* How It Works */
-        .how-it-works {
-            background: #f9fafb;
+        .btn-book:disabled {
+            background: #ccc;
+            cursor: not-allowed;
         }
 
-        .steps-container {
-            display: flex;
-            justify-content: center;
-            gap: 48px;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 0 auto;
+        /* Booking Modal */
+        .booking-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 20px;
         }
 
-        .step {
-            flex: 1;
-            min-width: 200px;
-            max-width: 280px;
-            text-align: center;
-        }
-
-        .step-number {
-            width: 60px;
-            height: 60px;
-            background: #667eea;
-            color: white;
-            border-radius: 50%;
+        .booking-modal.active {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0 auto 20px;
         }
 
-        .step h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #333;
-        }
-
-        .step p {
-            font-size: 15px;
-            color: #666;
-        }
-
-        /* Why Apna Kaam */
-        .why-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 24px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .why-card {
+        .booking-content {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .booking-header {
             display: flex;
-            align-items: flex-start;
-            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
         }
 
-        .why-icon {
-            font-size: 32px;
-            flex-shrink: 0;
+        .booking-header h2 {
+            font-size: 24px;
         }
 
-        .why-card h4 {
-            font-size: 18px;
-            margin-bottom: 6px;
-            color: #333;
-        }
-
-        .why-card p {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* Service Areas */
-        .areas-section {
-            background: #f9fafb;
-        }
-
-        .areas-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .area-badge {
-            background: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 16px;
-            font-weight: 500;
-            color: #333;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-align: center;
-            padding: 80px 20px;
-        }
-
-        .cta-section h2 {
-            font-size: 40px;
-            margin-bottom: 32px;
-        }
-
-        .btn-cta {
-            background: white;
-            color: #667eea;
-            padding: 18px 48px;
+        .close-btn {
+            background: none;
             border: none;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-        }
-
-        /* Footer */
-        .footer {
-            background: #1f2937;
-            color: #d1d5db;
-            padding: 48px 20px 32px;
-            text-align: center;
-        }
-
-        .footer-brand {
             font-size: 28px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 16px;
+            cursor: pointer;
+            color: #666;
         }
 
-        .footer-disclaimer {
-            font-size: 14px;
-            margin-bottom: 24px;
-            opacity: 0.8;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 24px;
-            justify-content: center;
-            flex-wrap: wrap;
+        .worker-summary {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 8px;
             margin-bottom: 24px;
         }
 
-        .footer-links a {
-            color: #9ca3af;
-            text-decoration: none;
-            font-size: 14px;
-            transition: color 0.2s;
+        .worker-summary h3 {
+            margin-bottom: 8px;
         }
 
-        .footer-links a:hover {
-            color: white;
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
         }
 
-        .footer-copyright {
-            font-size: 13px;
-            opacity: 0.6;
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 36px;
-            }
-
-            .hero .tagline {
-                font-size: 20px;
-            }
-
-            .hero-buttons {
+            .top-bar {
                 flex-direction: column;
-                align-items: center;
+                gap: 12px;
             }
 
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
-                max-width: 300px;
-            }
-
-            .section-title {
-                font-size: 28px;
-            }
-
-            .services-grid {
+            .filters-grid {
                 grid-template-columns: 1fr;
             }
 
-            .steps-container {
-                flex-direction: column;
-                align-items: center;
+            .workers-grid {
+                grid-template-columns: 1fr;
             }
 
-            .cta-section h2 {
-                font-size: 28px;
+            .auth-box {
+                padding: 24px;
+            }
+
+            .booking-content {
+                padding: 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <h1>🏠 Apna Kaam</h1>
-            <div class="tagline">Trusted Kamwali, Aya & Home Help Services in Kolkata</div>
-            <div class="subtitle">Verified local agents connecting you with reliable domestic help</div>
-            <div class="hero-buttons">
-                <button class="btn-primary" onclick="goToBooking()">Book a Service</button>
-                <button class="btn-secondary" onclick="goToAgent()">I am an Agent</button>
-            </div>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="brand">🏠 Apna Kaam</div>
+        <div class="user-section" id="userSection">
+            <span class="phone-display" id="phoneDisplay">Loading...</span>
+            <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
-    </section>
+    </div>
 
-    <!-- Services Section -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <p class="section-subtitle">Professional home help services tailored to your needs</p>
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-box">
+            <h2>Login to Continue</h2>
+            <div id="authMessage"></div>
             
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🧹</div>
-                    <h3>Kamwali Bai</h3>
-                    <p>Professional cleaning services for your home. Daily, weekly or monthly options available.</p>
-                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+            <!-- Phone Number Step -->
+            <div id="phoneStep">
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phoneInput" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
+                </div>
+                <button class="btn-submit" onclick="sendOTP()">Send OTP</button>
+            </div>
+
+            <!-- OTP Step -->
+            <div id="otpStep" style="display: none;">
+                <div class="form-group">
+                    <label>Enter OTP</label>
+                    <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6">
+                </div>
+                <button class="btn-submit" onclick="verifyOTP()">Verify OTP</button>
+                <p style="text-align: center; margin-top: 12px; font-size: 14px;">
+                    <a href="#" onclick="backToPhone()" style="color: #667eea;">Change Number</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filters-grid">
+                <div class="filter-group">
+                    <label>Service Type</label>
+                    <select id="serviceFilter" onchange="applyFilters()">
+                        <option value="">All Services</option>
+                        <option value="Maid">Maid</option>
+                        <option value="Cook">Cook</option>
+                        <option value="Cleaner">Cleaner</option>
+                        <option value="Nanny">Nanny</option>
+                        <option value="Driver">Driver</option>
+                        <option value="Gardener">Gardener</option>
+                    </select>
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">👵</div>
-                    <h3>Aya (Elder Care)</h3>
-                    <p>Compassionate care for elderly family members. Trained and experienced caregivers.</p>
-                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                <div class="filter-group">
+                    <label>Area</label>
+                    <input type="text" id="areaFilter" placeholder="e.g., Salt Lake" oninput="applyFilters()">
                 </div>
 
-                <div class="service-card">
-                    <div class="service-icon">👶</div>
-                    <h3>Babysitter</h3>
-                    <p>Reliable childcare services to keep your little ones safe and happy while you work.</p>
-                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
-                </div>
-
-                <div class="service-card">
-                    <div class="service-icon">👨‍🍳</div>
-                    <h3>Cook</h3>
-                    <p>Skilled cooks to prepare delicious homemade meals for your family every day.</p>
-                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                <div class="filter-group">
+                    <label>Availability</label>
+                    <select id="availabilityFilter" onchange="applyFilters()">
+                        <option value="">All</option>
+                        <option value="true">Available</option>
+                        <option value="false">Unavailable</option>
+                    </select>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- How It Works -->
-    <section class="section how-it-works">
-        <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Get verified home help in three simple steps</p>
-            
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Choose Service</h3>
-                    <p>Select the type of help you need from our range of services</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Select Time & Area</h3>
-                    <p>Pick your preferred schedule and confirm your location</p>
-                </div>
-
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Get Verified Help</h3>
-                    <p>Connect with trusted professionals from verified Aya centres</p>
-                </div>
+        <!-- Workers Section -->
+        <div class="workers-section">
+            <h2>Available Workers</h2>
+            <div id="workersContainer">
+                <div class="loading">Loading workers...</div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Why Apna Kaam -->
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Why Choose Apna Kaam</h2>
-            <p class="section-subtitle">We connect you with the best local service providers</p>
-            
-            <div class="why-cards">
-                <div class="why-card">
-                    <div class="why-icon">✅</div>
-                    <div>
-                        <h4>Verified Aya Centres</h4>
-                        <p>All service providers come from verified local agencies</p>
-                    </div>
-                </div>
-
-                <div class="why-card">
-                    <div class="why-icon">📍</div>
-                    <div>
-                        <h4>Local Agents</h4>
-                        <p>Connect with trusted agents in your neighborhood</p>
-                    </div>
-                </div>
-
-                <div class="why-card">
-                    <div class="why-icon">⏰</div>
-                    <div>
-                        <h4>Flexible Options</h4>
-                        <p>Choose hourly, daily, weekly or monthly service plans</p>
-                    </div>
-                </div>
-
-                <div class="why-card">
-                    <div class="why-icon">🏙️</div>
-                    <div>
-                        <h4>Kolkata Focused</h4>
-                        <p>Specialized service covering all major areas of Kolkata</p>
-                    </div>
-                </div>
-
-                <div class="why-card">
-                    <div class="why-icon">💰</div>
-                    <div>
-                        <h4>Transparent Pricing</h4>
-                        <p>Clear rates with no hidden charges or surprises</p>
-                    </div>
-                </div>
-
-                <div class="why-card">
-                    <div class="why-icon">🛡️</div>
-                    <div>
-                        <h4>Safe & Secure</h4>
-                        <p>Background-verified professionals you can trust</p>
-                    </div>
-                </div>
+    <!-- Booking Modal -->
+    <div class="booking-modal" id="bookingModal">
+        <div class="booking-content">
+            <div class="booking-header">
+                <h2>Confirm Booking</h2>
+                <button class="close-btn" onclick="closeBookingModal()">&times;</button>
             </div>
+
+            <div id="bookingMessage"></div>
+
+            <div class="worker-summary" id="workerSummary"></div>
+
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div class="form-group">
+                    <label>Service Date</label>
+                    <input type="date" id="bookingDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Service Time</label>
+                    <select id="bookingTime" required>
+                        <option value="">Select Time</option>
+                        <option value="Morning (6AM-12PM)">Morning (6AM-12PM)</option>
+                        <option value="Afternoon (12PM-6PM)">Afternoon (12PM-6PM)</option>
+                        <option value="Evening (6PM-10PM)">Evening (6PM-10PM)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Service Duration</label>
+                    <select id="bookingDuration" required>
+                        <option value="">Select Duration</option>
+                        <option value="1 Hour">1 Hour</option>
+                        <option value="2 Hours">2 Hours</option>
+                        <option value="4 Hours">4 Hours</option>
+                        <option value="Full Day">Full Day</option>
+                        <option value="Monthly">Monthly</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Address</label>
+                    <input type="text" id="bookingAddress" placeholder="Full address" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Special Instructions (Optional)</label>
+                    <input type="text" id="bookingInstructions" placeholder="Any specific requirements">
+                </div>
+
+                <button type="submit" class="btn-submit" id="bookingSubmitBtn">Confirm Booking</button>
+            </form>
         </div>
-    </section>
+    </div>
 
-    <!-- Service Areas -->
-    <section class="section areas-section">
-        <div class="container">
-            <h2 class="section-title">We Serve Across Kolkata</h2>
-            <p class="section-subtitle">Available in major localities across the city</p>
-            
-            <div class="areas-grid">
-                <div class="area-badge">Salt Lake</div>
-                <div class="area-badge">New Town</div>
-                <div class="area-badge">Dum Dum</div>
-                <div class="area-badge">Behala</div>
-                <div class="area-badge">Garia</div>
-                <div class="area-badge">Tollygunge</div>
-                <div class="area-badge">Park Street</div>
-                <div class="area-badge">Jadavpur</div>
-                <div class="area-badge">Howrah</div>
-                <div class="area-badge">Ballygunge</div>
-                <div class="area-badge">Rajarhat</div>
-                <div class="area-badge">Barasat</div>
-            </div>
-        </div>
-    </section>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getDatabase, ref, get, push, query, orderByChild } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Need Help at Home?</h2>
-            <button class="btn-cta" onclick="goToBooking()">Book Now</button>
-        </div>
-    </section>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3V69-7f3sIOqaKnI5qWBXVZ2puYtL-MM",
+            authDomain: "apna-kaam-731c9.firebaseapp.com",
+            databaseURL: "https://apna-kaam-731c9-default-rtdb.firebaseio.com",
+            projectId: "apna-kaam-731c9",
+            storageBucket: "apna-kaam-731c9.firebasestorage.app",
+            messagingSenderId: "735847647314",
+            appId: "1:735847647314:web:ae023a0cd2c97f5659b78b",
+            measurementId: "G-EL3160M2RV"
+        };
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-brand">Apna Kaam</div>
-            <div class="footer-disclaimer">
-                Apna Kaam connects customers with independent service providers. We verify agents but do not directly employ workers.
-            </div>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms & Conditions</a>
-                <a href="#">Contact Support</a>
-                <a href="#">About Us</a>
-            </div>
-            <div class="footer-copyright">
-                © 2025 Apna Kaam. All rights reserved.
-            </div>
-        </div>
-    </footer>
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const database = getDatabase(app);
 
-    <script>
-        function goToBooking() {
-            window.location.href = 'customerhomepage.html';
+        let allWorkers = [];
+        let currentUser = null;
+        let confirmationResult = null;
+        let selectedWorker = null;
+
+        // Initialize RecaptchaVerifier
+        let recaptchaVerifier = null;
+        function initRecaptcha() {
+            if (!recaptchaVerifier) {
+                recaptchaVerifier = new RecaptchaVerifier(auth, 'phone-button', {
+                    size: 'invisible',
+                    callback: (response) => {
+                        console.log('reCAPTCHA solved');
+                    }
+                });
+            }
         }
 
-        function goToAgent() {
-            window.location.href = 'agent-auth.html';
+        // Auth state listener
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                const phoneNumber = user.phoneNumber || user.email || 'User';
+                document.getElementById('phoneDisplay').textContent = phoneNumber;
+                document.getElementById('authModal').classList.add('hidden');
+                document.getElementById('mainContent').style.display = 'block';
+                loadWorkers();
+            } else {
+                currentUser = null;
+                document.getElementById('authModal').classList.remove('hidden');
+                document.getElementById('mainContent').style.display = 'none';
+            }
+        });
+
+        // Send OTP
+        window.sendOTP = async function() {
+            const phone = document.getElementById('phoneInput').value.trim();
+            
+            if (!/^[0-9]{10}$/.test(phone)) {
+                showAuthMessage('Please enter a valid 10-digit phone number', 'error');
+                return;
+            }
+
+            const fullPhone = '+91' + phone;
+            
+            try {
+                showAuthMessage('Sending OTP...', 'success');
+                initRecaptcha();
+                
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+                
+                document.getElementById('phoneStep').style.display = 'none';
+                document.getElementById('otpStep').style.display = 'block';
+                showAuthMessage('OTP sent successfully!', 'success');
+            } catch (error) {
+                console.error('Error sending OTP:', error);
+                let message = 'Failed to send OTP. ';
+                
+                if (error.code === 'auth/invalid-phone-number') {
+                    message += 'Invalid phone number format.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    message += 'Too many requests. Please try again later.';
+                } else {
+                    message += error.message;
+                }
+                
+                showAuthMessage(message, 'error');
+                
+                if (recaptchaVerifier) {
+                    recaptchaVerifier.clear();
+                    recaptchaVerifier = null;
+                }
+            }
+        };
+
+        // Verify OTP
+        window.verifyOTP = async function() {
+            const otp = document.getElementById('otpInput').value.trim();
+            
+            if (!/^[0-9]{6}$/.test(otp)) {
+                showAuthMessage('Please enter a valid 6-digit OTP', 'error');
+                return;
+            }
+
+            try {
+                showAuthMessage('Verifying OTP...', 'success');
+                await confirmationResult.confirm(otp);
+                showAuthMessage('Login successful!', 'success');
+            } catch (error) {
+                console.error('Error verifying OTP:', error);
+                showAuthMessage('Invalid OTP. Please try again.', 'error');
+            }
+        };
+
+        // Back to phone step
+        window.backToPhone = function() {
+            event.preventDefault();
+            document.getElementById('phoneStep').style.display = 'block';
+            document.getElementById('otpStep').style.display = 'none';
+            document.getElementById('otpInput').value = '';
+            showAuthMessage('', '');
+        };
+
+        // Show auth message
+        function showAuthMessage(text, type) {
+            const container = document.getElementById('authMessage');
+            if (!text) {
+                container.innerHTML = '';
+                return;
+            }
+            container.innerHTML = `<div class="message ${type}">${text}</div>`;
         }
 
-        // Smooth scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
+        // Load workers
+        async function loadWorkers() {
+            try {
+                const workersRef = ref(database, 'workers');
+                const snapshot = await get(workersRef);
+                
+                allWorkers = [];
+                if (snapshot.exists()) {
+                    snapshot.forEach((child) => {
+                        allWorkers.push({
+                            id: child.key,
+                            ...child.val()
+                        });
                     });
                 }
-            });
-        });
+                
+                renderWorkers();
+            } catch (error) {
+                console.error('Error loading workers:', error);
+                document.getElementById('workersContainer').innerHTML = 
+                    '<div class="empty-state"><h3>Error loading workers</h3><p>Please refresh the page</p></div>';
+            }
+        }
+
+        // Render workers
+        function renderWorkers(workers = null) {
+            const workersToShow = workers || allWorkers;
+            const container = document.getElementById('workersContainer');
+
+            if (workersToShow.length === 0) {
+                container.innerHTML = '<div class="empty-state"><h3>No workers found</h3><p>Try adjusting your filters</p></div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="workers-grid">
+                    ${workersToShow.map(worker => `
+                        <div class="worker-card">
+                            <img src="${worker.photoUrl || 'https://via.placeholder.com/300x220?text=No+Photo'}" 
+                                 alt="${worker.name}" 
+                                 class="worker-photo">
+                            <div class="worker-info">
+                                <div class="worker-name">${worker.name}</div>
+                                <div class="worker-detail"><strong>Service:</strong> ${worker.serviceType}</div>
+                                <div class="worker-detail"><strong>Area:</strong> ${worker.area}</div>
+                                <div class="worker-detail"><strong>Experience:</strong> ${worker.experience} years</div>
+                                <div class="worker-detail"><strong>Age:</strong> ${worker.age}</div>
+                                <span class="badge ${worker.available ? 'available' : 'unavailable'}">
+                                    ${worker.available ? 'Available' : 'Unavailable'}
+                                </span>
+                                <button class="btn-book" 
+                                        onclick="openBookingModal('${worker.id}')"
+                                        ${!worker.available ? 'disabled' : ''}>
+                                    ${worker.available ? 'Book Now' : 'Not Available'}
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Apply filters
+        window.applyFilters = function() {
+            const serviceType = document.getElementById('serviceFilter').value;
+            const area = document.getElementById('areaFilter').value.toLowerCase();
+            const availability = document.getElementById('availabilityFilter').value;
+
+            let filtered = allWorkers;
+
+            if (serviceType) {
+                filtered = filtered.filter(w => w.serviceType === serviceType);
+            }
+
+            if (area) {
+                filtered = filtered.filter(w => w.area.toLowerCase().includes(area));
+            }
+
+            if (availability) {
+                filtered = filtered.filter(w => w.available === (availability === 'true'));
+            }
+
+            renderWorkers(filtered);
+        };
+
+        // Open booking modal
+        window.openBookingModal = function(workerId) {
+            selectedWorker = allWorkers.find(w => w.id === workerId);
+            if (!selectedWorker) return;
+
+            document.getElementById('workerSummary').innerHTML = `
+                <h3>${selectedWorker.name}</h3>
+                <p><strong>Service:</strong> ${selectedWorker.serviceType}</p>
+                <p><strong>Area:</strong> ${selectedWorker.area}</p>
+                <p><strong>Experience:</strong> ${selectedWorker.experience} years</p>
+            `;
+
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('bookingDate').setAttribute('min', today);
+
+            document.getElementById('bookingModal').classList.add('active');
+        };
+
+        // Close booking modal
+        window.closeBookingModal = function() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.getElementById('bookingForm').reset();
+            document.getElementById('bookingMessage').innerHTML = '';
+        };
+
+        // Submit booking
+        window.submitBooking = async function(event) {
+            event.preventDefault();
+
+            const submitBtn = document.getElementById('bookingSubmitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Booking...';
+
+            try {
+                const bookingData = {
+                    customerId: currentUser.uid,
+                    customerPhone: currentUser.phoneNumber,
+                    workerId: selectedWorker.id,
+                    workerName: selectedWorker.name,
+                    agentId: selectedWorker.agentId,
+                    serviceType: selectedWorker.serviceType,
+                    date: document.getElementById('bookingDate').value,
+                    time: document.getElementById('bookingTime').value,
+                    duration: document.getElementById('bookingDuration').value,
+                    address: document.getElementById('bookingAddress').value,
+                    instructions: document.getElementById('bookingInstructions').value,
+                    status: 'pending',
+                    price: 0,
+                    createdAt: Date.now()
+                };
+
+                const bookingsRef = ref(database, 'bookings');
+                await push(bookingsRef, bookingData);
+
+                showBookingMessage('Booking confirmed! Agent will contact you soon.', 'success');
+                
+                setTimeout(() => {
+                    closeBookingModal();
+                }, 2000);
+            } catch (error) {
+                console.error('Error creating booking:', error);
+                showBookingMessage('Failed to create booking. Please try again.', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Confirm Booking';
+            }
+        };
+
+        // Show booking message
+        function showBookingMessage(text, type) {
+            document.getElementById('bookingMessage').innerHTML = 
+                `<div class="message ${type}">${text}</div>`;
+        }
+
+        // Logout
+        window.handleLogout = async function() {
+            try {
+                await signOut(auth);
+                window.location.reload();
+            } catch (error) {
+                console.error('Error logging out:', error);
+            }
+        };
+
+        // Add invisible button for reCAPTCHA
+        const phoneButton = document.createElement('div');
+        phoneButton.id = 'phone-button';
+        phoneButton.style.display = 'none';
+        document.body.appendChild(phoneButton);
     </script>
 </body>
 </html>
