@@ -1047,12 +1047,23 @@
         let selectedWorker = null;
         let isNewUser = false;
         let recaptchaVerifier = null;
+        let recaptchaInitialized = false;
 
-        // Initialize reCAPTCHA on page load
-        window.addEventListener('load', function() {
-            if (!recaptchaVerifier) {
-                const container = document.getElementById('recaptcha-container');
-                if (container) {
+        // Initialize reCAPTCHA (lazy - only when needed)
+        function initializeRecaptcha() {
+            return new Promise((resolve, reject) => {
+                if (recaptchaVerifier && recaptchaInitialized) {
+                    resolve(recaptchaVerifier);
+                    return;
+                }
+
+                try {
+                    const container = document.getElementById('recaptcha-container');
+                    if (!container) {
+                        reject(new Error('reCAPTCHA container not found'));
+                        return;
+                    }
+
                     recaptchaVerifier = new RecaptchaVerifier(auth, container, {
                         'size': 'invisible',
                         'callback': (response) => {
@@ -1060,14 +1071,25 @@
                         },
                         'expired-callback': () => {
                             console.log('reCAPTCHA expired');
+                            recaptchaInitialized = false;
                         }
                     });
-                    recaptchaVerifier.render().catch((error) => {
-                        console.error('reCAPTCHA render error:', error);
-                    });
+
+                    recaptchaVerifier.render()
+                        .then(() => {
+                            recaptchaInitialized = true;
+                            resolve(recaptchaVerifier);
+                        })
+                        .catch((error) => {
+                            console.error('reCAPTCHA render error:', error);
+                            reject(error);
+                        });
+                } catch (error) {
+                    console.error('reCAPTCHA initialization error:', error);
+                    reject(error);
                 }
-            }
-        });
+            });
+        }
 
         // Auth state listener
         onAuthStateChanged(auth, async (user) => {
@@ -1188,14 +1210,15 @@
             sendBtn.textContent = 'Sending...';
             
             try {
+                showAuthMessage('Initializing...', 'success');
+                
+                // Initialize reCAPTCHA
+                const appVerifier = await initializeRecaptcha();
+                
                 showAuthMessage('Sending OTP...', 'success');
                 
-                // Use the pre-initialized reCAPTCHA verifier
-                if (!recaptchaVerifier) {
-                    throw new Error('reCAPTCHA not initialized');
-                }
-                
-                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+                // Send OTP
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
                 
                 document.getElementById('phoneStep').style.display = 'none';
                 document.getElementById('otpStep').style.display = 'block';
@@ -1219,21 +1242,12 @@
                 // Reset reCAPTCHA on error
                 if (recaptchaVerifier) {
                     try {
-                        recaptchaVerifier.clear();
-                        // Reinitialize
-                        const container = document.getElementById('recaptcha-container');
-                        if (container) {
-                            recaptchaVerifier = new RecaptchaVerifier(auth, container, {
-                                'size': 'invisible',
-                                'callback': (response) => {
-                                    console.log('reCAPTCHA verified');
-                                }
-                            });
-                            recaptchaVerifier.render();
-                        }
+                        await recaptchaVerifier.clear();
                     } catch (e) {
-                        console.error('Error resetting reCAPTCHA:', e);
+                        console.error('Error clearing reCAPTCHA:', e);
                     }
+                    recaptchaVerifier = null;
+                    recaptchaInitialized = false;
                 }
             } finally {
                 sendBtn.disabled = false;
