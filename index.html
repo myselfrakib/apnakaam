@@ -1149,7 +1149,7 @@
             }
         };
 
-        // Send OTP
+       // Send OTP
         window.sendOTP = async function() {
             const phone = document.getElementById('phoneInput').value.trim();
             const sendBtn = document.getElementById('sendOtpBtn');
@@ -1169,10 +1169,14 @@
                 
                 // Initialize reCAPTCHA if not already done
                 if (!recaptchaVerifier) {
-                    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                    recaptchaVerifier = new RecaptchaVerifier(auth, document.getElementById('recaptcha-container'), {
                         'size': 'invisible',
                         'callback': (response) => {
                             console.log('reCAPTCHA verified');
+                        },
+                        'expired-callback': () => {
+                            console.log('reCAPTCHA expired');
+                            recaptchaVerifier = null;
                         }
                     });
                 }
@@ -1203,7 +1207,11 @@
                 
                 // Reset reCAPTCHA on error
                 if (recaptchaVerifier) {
-                    recaptchaVerifier.clear();
+                    try {
+                        recaptchaVerifier.clear();
+                    } catch (e) {
+                        console.log('Error clearing recaptcha:', e);
+                    }
                     recaptchaVerifier = null;
                 }
             } finally {
@@ -1211,7 +1219,6 @@
                 sendBtn.textContent = 'Send OTP';
             }
         };
-
         // Verify OTP
         window.verifyOTP = async function() {
             const otp = document.getElementById('otpInput').value.trim();
