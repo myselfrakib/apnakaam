@@ -1035,6 +1035,7 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        auth.useDeviceLanguage();
         const database = getDatabase(app);
 
         let allWorkers = [];
@@ -1046,20 +1047,26 @@
 
         // Initialize RecaptchaVerifier
         let recaptchaVerifier = null;
-        function initRecaptcha() {
+        let recaptchaWidgetId = null;
+
+        function setupRecaptcha() {
             if (!recaptchaVerifier) {
                 try {
-                    const recaptchaContainer = document.getElementById('recaptcha-container');
-                    recaptchaVerifier = new RecaptchaVerifier(auth, recaptchaContainer, {
-                        size: 'invisible',
-                        callback: (response) => {
-                            console.log('reCAPTCHA solved');
+                    window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                        'size': 'invisible',
+                        'callback': (response) => {
+                            console.log('reCAPTCHA verified');
+                        },
+                        'expired-callback': () => {
+                            console.log('reCAPTCHA expired');
                         }
                     });
+                    recaptchaVerifier = window.recaptchaVerifier;
                 } catch (error) {
-                    console.error('Error initializing reCAPTCHA:', error);
+                    console.error('reCAPTCHA setup error:', error);
                 }
             }
+            return recaptchaVerifier;
         }
 
         // Auth state listener
@@ -1178,9 +1185,16 @@
             
             try {
                 showAuthMessage('Sending OTP...', 'success');
-                initRecaptcha();
                 
-                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
+                // Setup reCAPTCHA
+                const appVerifier = setupRecaptcha();
+                
+                if (!appVerifier) {
+                    throw new Error('Failed to initialize reCAPTCHA');
+                }
+                
+                // Send OTP
+                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
                 
                 document.getElementById('phoneStep').style.display = 'none';
                 document.getElementById('otpStep').style.display = 'block';
@@ -1193,15 +1207,23 @@
                     message += 'Invalid phone number format.';
                 } else if (error.code === 'auth/too-many-requests') {
                     message += 'Too many requests. Please try again later.';
+                } else if (error.code === 'auth/quota-exceeded') {
+                    message += 'SMS quota exceeded. Please try again tomorrow.';
                 } else {
                     message += error.message;
                 }
                 
                 showAuthMessage(message, 'error');
                 
+                // Reset reCAPTCHA on error
                 if (recaptchaVerifier) {
-                    recaptchaVerifier.clear();
+                    try {
+                        recaptchaVerifier.clear();
+                    } catch (e) {
+                        console.error('Error clearing reCAPTCHA:', e);
+                    }
                     recaptchaVerifier = null;
+                    window.recaptchaVerifier = null;
                 }
             }
         };
@@ -1515,11 +1537,12 @@
             }
         };
 
-        // Add invisible container for reCAPTCHA
-        const recaptchaContainer = document.createElement('div');
-        recaptchaContainer.id = 'recaptcha-container';
-        recaptchaContainer.style.display = 'none';
-        document.body.appendChild(recaptchaContainer);
+        // Add invisible container for reCAPTCHA (must be in DOM before use)
+        document.addEventListener('DOMContentLoaded', function() {
+            const recaptchaContainer = document.createElement('div');
+            recaptchaContainer.id = 'recaptcha-container';
+            document.body.appendChild(recaptchaContainer);
+        });
     </script>
 </body>
 </html>
