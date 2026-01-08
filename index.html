@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apna Kaam - Trusted Home Help Services in Kolkata</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .hero .tagline {
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .hero .subtitle {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 16px 40px;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 48px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .service-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .service-card p {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .btn-book {
+            background: #667eea;
+            color: white;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-book:hover {
+            background: #5568d3;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            background: #f9fafb;
+        }
+
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            max-width: 280px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .step h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .step p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Why Apna Kaam */
+        .why-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .why-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .why-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+
+        .why-card h4 {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .why-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Service Areas */
+        .areas-section {
+            background: #f9fafb;
+        }
+
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .area-badge {
+            background: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 40px;
+            margin-bottom: 32px;
+        }
+
+        .btn-cta {
+            background: white;
+            color: #667eea;
+            padding: 18px 48px;
+            border: none;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 48px 20px 32px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .footer-disclaimer {
+            font-size: 14px;
+            margin-bottom: 24px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .footer-links a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-copyright {
+            font-size: 13px;
+            opacity: 0.6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero .tagline {
+                font-size: 20px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>🏠 Apna Kaam</h1>
+            <div class="tagline">Trusted Kamwali, Aya & Home Help Services in Kolkata</div>
+            <div class="subtitle">Verified local agents connecting you with reliable domestic help</div>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="goToBooking()">Book a Service</button>
+                <button class="btn-secondary" onclick="goToAgent()">I am an Agent</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Professional home help services tailored to your needs</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🧹</div>
+                    <h3>Kamwali Bai</h3>
+                    <p>Professional cleaning services for your home. Daily, weekly or monthly options available.</p>
+                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👵</div>
+                    <h3>Aya (Elder Care)</h3>
+                    <p>Compassionate care for elderly family members. Trained and experienced caregivers.</p>
+                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👶</div>
+                    <h3>Babysitter</h3>
+                    <p>Reliable childcare services to keep your little ones safe and happy while you work.</p>
+                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">👨‍🍳</div>
+                    <h3>Cook</h3>
+                    <p>Skilled cooks to prepare delicious homemade meals for your family every day.</p>
+                    <button class="btn-book" onclick="goToBooking()">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get verified home help in three simple steps</p>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Choose Service</h3>
+                    <p>Select the type of help you need from our range of services</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Select Time & Area</h3>
+                    <p>Pick your preferred schedule and confirm your location</p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Get Verified Help</h3>
+                    <p>Connect with trusted professionals from verified Aya centres</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Apna Kaam -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Apna Kaam</h2>
+            <p class="section-subtitle">We connect you with the best local service providers</p>
+            
+            <div class="why-cards">
+                <div class="why-card">
+                    <div class="why-icon">✅</div>
+                    <div>
+                        <h4>Verified Aya Centres</h4>
+                        <p>All service providers come from verified local agencies</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">📍</div>
+                    <div>
+                        <h4>Local Agents</h4>
+                        <p>Connect with trusted agents in your neighborhood</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">⏰</div>
+                    <div>
+                        <h4>Flexible Options</h4>
+                        <p>Choose hourly, daily, weekly or monthly service plans</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">🏙️</div>
+                    <div>
+                        <h4>Kolkata Focused</h4>
+                        <p>Specialized service covering all major areas of Kolkata</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">💰</div>
+                    <div>
+                        <h4>Transparent Pricing</h4>
+                        <p>Clear rates with no hidden charges or surprises</p>
+                    </div>
+                </div>
+
+                <div class="why-card">
+                    <div class="why-icon">🛡️</div>
+                    <div>
+                        <h4>Safe & Secure</h4>
+                        <p>Background-verified professionals you can trust</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Areas -->
+    <section class="section areas-section">
+        <div class="container">
+            <h2 class="section-title">We Serve Across Kolkata</h2>
+            <p class="section-subtitle">Available in major localities across the city</p>
+            
+            <div class="areas-grid">
+                <div class="area-badge">Salt Lake</div>
+                <div class="area-badge">New Town</div>
+                <div class="area-badge">Dum Dum</div>
+                <div class="area-badge">Behala</div>
+                <div class="area-badge">Garia</div>
+                <div class="area-badge">Tollygunge</div>
+                <div class="area-badge">Park Street</div>
+                <div class="area-badge">Jadavpur</div>
+                <div class="area-badge">Howrah</div>
+                <div class="area-badge">Ballygunge</div>
+                <div class="area-badge">Rajarhat</div>
+                <div class="area-badge">Barasat</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Need Help at Home?</h2>
+            <button class="btn-cta" onclick="goToBooking()">Book Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">Apna Kaam</div>
+            <div class="footer-disclaimer">
+                Apna Kaam connects customers with independent service providers. We verify agents but do not directly employ workers.
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Support</a>
+                <a href="#">About Us</a>
+            </div>
+            <div class="footer-copyright">
+                © 2025 Apna Kaam. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function goToBooking() {
+            window.location.href = 'customerhomepage.html';
+        }
+
+        function goToAgent() {
+            window.location.href = 'agent-auth.html';
+        }
+
+        // Smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
