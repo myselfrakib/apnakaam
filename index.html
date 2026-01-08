@@ -825,9 +825,6 @@
     </style>
 </head>
 <body>
-    <!-- Invisible reCAPTCHA Container -->
-    <div id="recaptcha-container"></div>
-
     <!-- Top Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -856,41 +853,37 @@
     <!-- Auth Modal -->
     <div class="auth-modal" id="authModal">
         <div class="auth-box">
-            <div class="auth-icon">📱</div>
+            <div class="auth-icon">✉️</div>
             <h2 id="authTitle">Welcome Back</h2>
-            <p class="auth-subtitle" id="authSubtitle">Login with your phone number to continue</p>
+            <p class="auth-subtitle" id="authSubtitle">Login to continue booking services</p>
             <div id="authMessage"></div>
             
-            <!-- Phone Number Step -->
-            <div id="phoneStep">
+            <!-- Login/Signup Form -->
+            <div id="authStep">
                 <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" id="phoneInput" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}">
+                    <label>Email Address</label>
+                    <input type="email" id="emailInput" placeholder="your@email.com" required>
                 </div>
-                <button class="btn-primary" id="sendOtpBtn" onclick="sendOTP()">Send OTP</button>
-            </div>
-
-            <!-- OTP Step -->
-            <div id="otpStep" style="display: none;">
                 <div class="form-group">
-                    <label>Enter OTP</label>
-                    <input type="text" id="otpInput" placeholder="6-digit OTP" maxlength="6">
+                    <label>Password</label>
+                    <input type="password" id="passwordInput" placeholder="Enter your password" minlength="6" required>
                 </div>
-                <button class="btn-primary" onclick="verifyOTP()">Verify OTP</button>
+                <button class="btn-primary" id="authBtn" onclick="handleAuth()">Login</button>
                 <p class="text-link">
-                    <a href="#" onclick="backToPhone()">Change Number</a>
+                    <span id="authSwitchText">Don't have an account?</span>
+                    <a href="#" onclick="toggleAuthMode(event)">Sign Up</a>
                 </p>
             </div>
 
-            <!-- Signup Step (for new users) -->
+            <!-- Profile Setup Step (for new users) -->
             <div id="signupStep" style="display: none;">
                 <div class="form-group">
                     <label>Your Name</label>
                     <input type="text" id="signupName" placeholder="Enter your full name" required>
                 </div>
                 <div class="form-group">
-                    <label>Email (Optional)</label>
-                    <input type="email" id="signupEmail" placeholder="your@email.com">
+                    <label>Phone Number</label>
+                    <input type="tel" id="signupPhone" placeholder="10-digit mobile number" maxlength="10" pattern="[0-9]{10}" required>
                 </div>
                 <div class="form-group">
                     <label>Area / Location</label>
@@ -1022,7 +1015,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAuth, RecaptchaVerifier, signInWithPhoneNumber, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getDatabase, ref, get, push, set, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -1043,9 +1036,8 @@
         let allWorkers = [];
         let allBookings = [];
         let currentUser = null;
-        let confirmationResult = null;
         let selectedWorker = null;
-        let recaptchaVerifier = null;
+        let isLoginMode = true;
 
         // Auth state listener
         onAuthStateChanged(auth, async (user) => {
@@ -1059,7 +1051,7 @@
                 if (userSnapshot.exists()) {
                     // Existing user - show main content
                     const userData = userSnapshot.val();
-                    const displayName = userData.name || user.phoneNumber;
+                    const displayName = userData.name || user.email;
                     document.getElementById('phoneBadge').textContent = displayName;
                     document.getElementById('authModal').classList.add('hidden');
                     document.getElementById('mainContent').style.display = 'block';
@@ -1078,22 +1070,112 @@
 
         // Show signup step
         function showSignupStep() {
-            document.getElementById('phoneStep').style.display = 'none';
-            document.getElementById('otpStep').style.display = 'none';
+            document.getElementById('authStep').style.display = 'none';
             document.getElementById('signupStep').style.display = 'block';
             document.getElementById('authTitle').textContent = 'Complete Your Profile';
             document.getElementById('authSubtitle').textContent = 'Help us know you better';
             showAuthMessage('', '');
         }
 
+        // Toggle between login and signup
+        window.toggleAuthMode = function(event) {
+            event.preventDefault();
+            isLoginMode = !isLoginMode;
+            
+            const authBtn = document.getElementById('authBtn');
+            const authTitle = document.getElementById('authTitle');
+            const authSubtitle = document.getElementById('authSubtitle');
+            const authSwitchText = document.getElementById('authSwitchText');
+            const switchLink = event.target;
+            
+            if (isLoginMode) {
+                authTitle.textContent = 'Welcome Back';
+                authSubtitle.textContent = 'Login to continue booking services';
+                authBtn.textContent = 'Login';
+                authSwitchText.textContent = "Don't have an account?";
+                switchLink.textContent = 'Sign Up';
+            } else {
+                authTitle.textContent = 'Create Account';
+                authSubtitle.textContent = 'Sign up to start booking services';
+                authBtn.textContent = 'Sign Up';
+                authSwitchText.textContent = 'Already have an account?';
+                switchLink.textContent = 'Login';
+            }
+            
+            showAuthMessage('', '');
+        };
+
+        // Handle authentication (Login or Signup)
+        window.handleAuth = async function() {
+            const email = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
+            const authBtn = document.getElementById('authBtn');
+            
+            if (!email || !password) {
+                showAuthMessage('Please fill in all fields', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showAuthMessage('Password must be at least 6 characters', 'error');
+                return;
+            }
+
+            authBtn.disabled = true;
+            authBtn.textContent = isLoginMode ? 'Logging in...' : 'Signing up...';
+            
+            try {
+                if (isLoginMode) {
+                    // Login
+                    showAuthMessage('Logging in...', 'success');
+                    await signInWithEmailAndPassword(auth, email, password);
+                    showAuthMessage('Login successful!', 'success');
+                } else {
+                    // Signup
+                    showAuthMessage('Creating account...', 'success');
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    showAuthMessage('Account created! Please complete your profile.', 'success');
+                }
+            } catch (error) {
+                console.error('Authentication error:', error);
+                let message = 'Authentication failed. ';
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    message = 'This email is already registered. Please login instead.';
+                } else if (error.code === 'auth/invalid-email') {
+                    message = 'Invalid email address.';
+                } else if (error.code === 'auth/user-not-found') {
+                    message = 'No account found with this email. Please sign up.';
+                } else if (error.code === 'auth/wrong-password') {
+                    message = 'Incorrect password. Please try again.';
+                } else if (error.code === 'auth/weak-password') {
+                    message = 'Password is too weak. Use at least 6 characters.';
+                } else if (error.code === 'auth/invalid-credential') {
+                    message = 'Invalid email or password. Please try again.';
+                } else {
+                    message += error.message;
+                }
+                
+                showAuthMessage(message, 'error');
+            } finally {
+                authBtn.disabled = false;
+                authBtn.textContent = isLoginMode ? 'Login' : 'Sign Up';
+            }
+        };
+
         // Complete signup
         window.completeSignup = async function() {
             const name = document.getElementById('signupName').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
             const area = document.getElementById('signupArea').value.trim();
 
-            if (!name || !area) {
+            if (!name || !phone || !area) {
                 showAuthMessage('Please fill in all required fields', 'error');
+                return;
+            }
+
+            if (!/^[0-9]{10}$/.test(phone)) {
+                showAuthMessage('Please enter a valid 10-digit phone number', 'error');
                 return;
             }
 
@@ -1104,8 +1186,8 @@
                 const customerData = {
                     uid: currentUser.uid,
                     name: name,
-                    email: email || '',
-                    phone: currentUser.phoneNumber,
+                    email: currentUser.email,
+                    phone: '+91' + phone,
                     area: area,
                     createdAt: Date.now(),
                     role: 'customer'
@@ -1147,104 +1229,6 @@
                 document.getElementById('bookingsTab').classList.add('active');
                 loadBookings();
             }
-        };
-
-       // Send OTP
-        window.sendOTP = async function() {
-            const phone = document.getElementById('phoneInput').value.trim();
-            const sendBtn = document.getElementById('sendOtpBtn');
-            
-            if (!/^[0-9]{10}$/.test(phone)) {
-                showAuthMessage('Please enter a valid 10-digit phone number', 'error');
-                return;
-            }
-
-            const fullPhone = '+91' + phone;
-            
-            sendBtn.disabled = true;
-            sendBtn.textContent = 'Sending...';
-            
-            try {
-                showAuthMessage('Initializing verification...', 'success');
-                
-                // Initialize reCAPTCHA if not already done
-                if (!recaptchaVerifier) {
-                    recaptchaVerifier = new RecaptchaVerifier(auth, document.getElementById('recaptcha-container'), {
-                        'size': 'invisible',
-                        'callback': (response) => {
-                            console.log('reCAPTCHA verified');
-                        },
-                        'expired-callback': () => {
-                            console.log('reCAPTCHA expired');
-                            recaptchaVerifier = null;
-                        }
-                    });
-                }
-                
-                showAuthMessage('Sending OTP...', 'success');
-                
-                // Send OTP
-                confirmationResult = await signInWithPhoneNumber(auth, fullPhone, recaptchaVerifier);
-                
-                document.getElementById('phoneStep').style.display = 'none';
-                document.getElementById('otpStep').style.display = 'block';
-                showAuthMessage('OTP sent successfully!', 'success');
-            } catch (error) {
-                console.error('Error sending OTP:', error);
-                let message = 'Failed to send OTP. ';
-                
-                if (error.code === 'auth/invalid-phone-number') {
-                    message += 'Invalid phone number format.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    message += 'Too many requests. Please try again later.';
-                } else if (error.code === 'auth/quota-exceeded') {
-                    message += 'SMS quota exceeded. Please try again later.';
-                } else {
-                    message += error.message;
-                }
-                
-                showAuthMessage(message, 'error');
-                
-                // Reset reCAPTCHA on error
-                if (recaptchaVerifier) {
-                    try {
-                        recaptchaVerifier.clear();
-                    } catch (e) {
-                        console.log('Error clearing recaptcha:', e);
-                    }
-                    recaptchaVerifier = null;
-                }
-            } finally {
-                sendBtn.disabled = false;
-                sendBtn.textContent = 'Send OTP';
-            }
-        };
-        // Verify OTP
-        window.verifyOTP = async function() {
-            const otp = document.getElementById('otpInput').value.trim();
-            
-            if (!/^[0-9]{6}$/.test(otp)) {
-                showAuthMessage('Please enter a valid 6-digit OTP', 'error');
-                return;
-            }
-
-            try {
-                showAuthMessage('Verifying OTP...', 'success');
-                await confirmationResult.confirm(otp);
-                showAuthMessage('Login successful!', 'success');
-            } catch (error) {
-                console.error('Error verifying OTP:', error);
-                showAuthMessage('Invalid OTP. Please try again.', 'error');
-            }
-        };
-
-        // Back to phone step
-        window.backToPhone = function() {
-            event.preventDefault();
-            document.getElementById('phoneStep').style.display = 'block';
-            document.getElementById('otpStep').style.display = 'none';
-            document.getElementById('otpInput').value = '';
-            showAuthMessage('', '');
         };
 
         // Show auth message
@@ -1480,7 +1464,7 @@
             try {
                 const bookingData = {
                     customerId: currentUser.uid,
-                    customerPhone: currentUser.phoneNumber,
+                    customerEmail: currentUser.email,
                     workerId: selectedWorker.id,
                     workerName: selectedWorker.name,
                     agentId: selectedWorker.agentId || '',
