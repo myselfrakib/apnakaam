@@ -1354,8 +1354,10 @@
 
                 container.innerHTML = `
                     <div class="workers-grid">
-                        ${availableWorkers.map(worker => `
-                            <div class="worker-card" onclick="selectWorker('${worker.id}', '${worker.name}', ${JSON.stringify(worker).replace(/"/g, '&quot;')})">
+                        ${availableWorkers.map(worker => {
+                            const workerDataStr = JSON.stringify(worker).replace(/"/g, '&quot;');
+                            return `
+                            <div class="worker-card" onclick='selectWorker(${JSON.stringify(worker.id)}, ${JSON.stringify(worker.name)}, \`${workerDataStr}\`)'>
                                 <img src="${worker.photoUrl || 'https://via.placeholder.com/320x200?text=No+Photo'}" 
                                      alt="${worker.name}" 
                                      class="worker-image"
@@ -1385,7 +1387,7 @@
                                     <button class="btn-select-worker">Select Worker</button>
                                 </div>
                             </div>
-                        `).join('')}
+                        `}).join('')}
                     </div>
                 `;
 
@@ -1405,7 +1407,12 @@
         window.selectWorker = function(id, name, workerDataStr) {
             bookingData.workerId = id;
             bookingData.workerName = name;
-            bookingData.workerData = JSON.parse(workerDataStr.replace(/&quot;/g, '"'));
+            
+            // Parse the worker data - it's already a string, just need to decode HTML entities
+            const textarea = document.createElement('textarea');
+            textarea.innerHTML = workerDataStr;
+            const decodedStr = textarea.value;
+            bookingData.workerData = JSON.parse(decodedStr);
             
             document.querySelectorAll('.worker-card').forEach(card => {
                 card.classList.remove('selected');
