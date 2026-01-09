@@ -145,7 +145,7 @@
         /* Workers Grid */
         .workers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -185,6 +185,36 @@
             font-size: 14px;
             color: #666;
             margin-bottom: 4px;
+        }
+
+        .wages-section {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .wages-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #4f46e5;
+            margin-bottom: 8px;
+        }
+
+        .wages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            font-size: 12px;
+        }
+
+        .wage-item {
+            background: #f9fafb;
+            padding: 6px 8px;
+            border-radius: 4px;
+        }
+
+        .wage-item strong {
+            color: #374151;
         }
 
         .availability-badge {
@@ -230,7 +260,7 @@
             background: white;
             border-radius: 12px;
             padding: 32px;
-            max-width: 500px;
+            max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -282,6 +312,27 @@
         .form-group select:focus {
             outline: none;
             border-color: #4f46e5;
+        }
+
+        .wages-input-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .wage-input-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wage-input-item label {
+            font-size: 13px;
+            margin-bottom: 6px;
+            color: #666;
+        }
+
+        .wage-input-item input {
+            padding: 10px;
         }
 
         .availability-toggle {
@@ -390,6 +441,18 @@
             margin-bottom: 8px;
         }
 
+        .section-divider {
+            margin: 24px 0 16px 0;
+            padding-top: 16px;
+            border-top: 2px solid #e5e7eb;
+        }
+
+        .section-divider h3 {
+            font-size: 16px;
+            color: #4f46e5;
+            margin-bottom: 12px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .top-bar {
@@ -412,6 +475,10 @@
 
             .modal-content {
                 padding: 20px;
+            }
+
+            .wages-input-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -516,7 +583,35 @@
                     <label>Photo *</label>
                     <input type="file" id="workerPhoto" accept="image/*" required>
                 </div>
-                <div class="form-group">
+
+                <!-- Wages Section -->
+                <div class="section-divider">
+                    <h3>💰 Wage Information</h3>
+                </div>
+                <div class="wages-input-grid">
+                    <div class="wage-input-item">
+                        <label>1 Hour *</label>
+                        <input type="number" id="wage1hr" placeholder="₹" min="0" step="10" required>
+                    </div>
+                    <div class="wage-input-item">
+                        <label>4 Hours *</label>
+                        <input type="number" id="wage4hr" placeholder="₹" min="0" step="10" required>
+                    </div>
+                    <div class="wage-input-item">
+                        <label>12 Hours *</label>
+                        <input type="number" id="wage12hr" placeholder="₹" min="0" step="10" required>
+                    </div>
+                    <div class="wage-input-item">
+                        <label>1 Day (24 hrs) *</label>
+                        <input type="number" id="wage1day" placeholder="₹" min="0" step="10" required>
+                    </div>
+                    <div class="wage-input-item">
+                        <label>30 Days *</label>
+                        <input type="number" id="wage30days" placeholder="₹" min="0" step="100" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
                     <label>Availability</label>
                     <div class="availability-toggle">
                         <label class="toggle-switch">
@@ -625,6 +720,20 @@
                                 <div class="worker-details"><strong>Area:</strong> ${worker.area}</div>
                                 <div class="worker-details"><strong>Experience:</strong> ${worker.experience} years</div>
                                 <div class="worker-details"><strong>Age:</strong> ${worker.age}</div>
+                                
+                                ${worker.wages ? `
+                                    <div class="wages-section">
+                                        <div class="wages-title">Wage Rates</div>
+                                        <div class="wages-grid">
+                                            <div class="wage-item"><strong>1hr:</strong> ₹${worker.wages.oneHour}</div>
+                                            <div class="wage-item"><strong>4hr:</strong> ₹${worker.wages.fourHours}</div>
+                                            <div class="wage-item"><strong>12hr:</strong> ₹${worker.wages.twelveHours}</div>
+                                            <div class="wage-item"><strong>1 day:</strong> ₹${worker.wages.oneDay}</div>
+                                            <div class="wage-item" style="grid-column: span 2;"><strong>30 days:</strong> ₹${worker.wages.thirtyDays}</div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                                
                                 <span class="availability-badge ${worker.available ? 'available' : 'unavailable'}">
                                     ${worker.available ? 'Available' : 'Unavailable'}
                                 </span>
@@ -708,9 +817,23 @@
                 const photoFile = document.getElementById('workerPhoto').files[0];
                 const available = document.getElementById('workerAvailable').checked;
 
+                // Get wage values
+                const wage1hr = parseInt(document.getElementById('wage1hr').value);
+                const wage4hr = parseInt(document.getElementById('wage4hr').value);
+                const wage12hr = parseInt(document.getElementById('wage12hr').value);
+                const wage1day = parseInt(document.getElementById('wage1day').value);
+                const wage30days = parseInt(document.getElementById('wage30days').value);
+
                 // Validation
                 if (!name || !age || !serviceType || !area || !photoFile) {
                     showMessage('Please fill all required fields', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Add Worker';
+                    return;
+                }
+
+                if (!wage1hr || !wage4hr || !wage12hr || !wage1day || !wage30days) {
+                    showMessage('Please fill all wage fields', 'error');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Add Worker';
                     return;
@@ -722,7 +845,7 @@
                 await uploadBytes(photoRef, photoFile);
                 const photoUrl = await getDownloadURL(photoRef);
 
-                // Save worker data
+                // Save worker data with wages
                 const workersRef = ref(database, 'workers');
                 await push(workersRef, {
                     agentId: currentAgentId,
@@ -733,6 +856,13 @@
                     area: area,
                     photoUrl: photoUrl,
                     available: available,
+                    wages: {
+                        oneHour: wage1hr,
+                        fourHours: wage4hr,
+                        twelveHours: wage12hr,
+                        oneDay: wage1day,
+                        thirtyDays: wage30days
+                    },
                     createdAt: timestamp
                 });
 
