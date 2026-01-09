@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
-    <title>Apna Kaam - Home Help Services</title>
+    <title>Apna Kaam - Professional Home Services</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FF6B6B;
-            --primary-dark: #E85555;
-            --secondary: #4ECDC4;
-            --accent: #FFE66D;
-            --dark: #1A1A2E;
-            --gray: #6C757D;
-            --light-bg: #FFF9F5;
+            --primary: #2563EB;
+            --primary-dark: #1D4ED8;
+            --primary-light: #DBEAFE;
+            --secondary: #10B981;
+            --secondary-dark: #059669;
+            --accent: #F59E0B;
+            --danger: #EF4444;
+            --dark: #0F172A;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-400: #94A3B8;
+            --gray-500: #64748B;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1E293B;
             --card-bg: #FFFFFF;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
-            --shadow-md: 0 8px 24px rgba(0,0,0,0.12);
-            --shadow-lg: 0 16px 48px rgba(0,0,0,0.16);
+            --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
+            --shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
         }
 
         * {
@@ -30,230 +42,25 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--light-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--gray-50);
             color: var(--dark);
             line-height: 1.6;
-        }
-
-        /* Auth Pages */
-        .auth-page {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #FFE5E5 0%, #FFF9F5 50%, #E3F2FD 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .auth-page::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,107,107,0.1) 0%, transparent 70%);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(-50px, 50px) rotate(180deg); }
-        }
-
-        .auth-container {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 48px;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: var(--shadow-lg);
-            animation: slideUp 0.6s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(40px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .auth-brand {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .auth-brand-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .auth-brand h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .auth-brand p {
-            font-size: 14px;
-            color: var(--gray);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .auth-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            margin-bottom: 12px;
-            color: var(--dark);
-        }
-
-        .auth-subtitle {
-            text-align: center;
-            color: var(--gray);
-            font-size: 14px;
-            margin-bottom: 32px;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            color: var(--dark);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group label .required {
-            color: var(--primary);
-            margin-left: 4px;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid #E5E5E5;
-            border-radius: 12px;
-            font-size: 16px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-
-        .btn-primary {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
-        }
-
-        .btn-primary:disabled {
-            background: #CCC;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .text-link {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        .text-link a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .text-link a:hover {
-            text-decoration: underline;
-        }
-
-        .message {
-            padding: 14px 18px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-10px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .message.error {
-            background: #FFE5E5;
-            color: #D32F2F;
-            border: 2px solid #FFCDD2;
-        }
-
-        .message.success {
-            background: #E8F5E9;
-            color: #2E7D32;
-            border: 2px solid #A5D6A7;
-        }
-
-        .page-hidden {
-            display: none;
+            -webkit-font-smoothing: antialiased;
         }
 
         /* Top Navigation */
         .navbar {
             background: var(--card-bg);
             box-shadow: var(--shadow-sm);
-            padding: 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 3px solid var(--primary);
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .nav-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 16px 24px;
             display: flex;
@@ -268,22 +75,28 @@
         }
 
         .brand-icon {
-            font-size: 32px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
         }
 
         .brand-text h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
             line-height: 1;
         }
 
         .brand-text p {
-            font-size: 11px;
-            color: var(--gray);
-            letter-spacing: 1px;
-            text-transform: uppercase;
+            font-size: 12px;
+            color: var(--gray-500);
+            font-weight: 500;
         }
 
         .nav-actions {
@@ -292,67 +105,103 @@
             gap: 16px;
         }
 
-        .user-badge {
-            background: linear-gradient(135deg, var(--secondary), #45B7AF);
-            color: white;
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             padding: 8px 16px;
-            border-radius: 24px;
-            font-size: 13px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
+            background: var(--gray-100);
+            border-radius: 12px;
         }
 
-        .btn-logout {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            padding: 8px 20px;
-            border-radius: 24px;
-            cursor: pointer;
+        .user-info.logged-out {
+            background: var(--primary-light);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-size: 14px;
             font-weight: 600;
-            transition: all 0.3s ease;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .btn-logout:hover {
-            background: var(--primary);
-            color: white;
+        .btn-login:hover {
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: var(--gray-500);
+            line-height: 1.2;
         }
 
         /* Tab Navigation */
         .tab-nav {
             background: var(--card-bg);
-            border-bottom: 1px solid #E5E5E5;
-            padding: 0;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .tab-nav-container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 24px;
             display: flex;
-            gap: 8px;
+            gap: 4px;
         }
 
         .tab-btn {
             background: transparent;
             border: none;
-            padding: 16px 32px;
-            font-size: 15px;
+            padding: 14px 24px;
+            font-size: 14px;
             font-weight: 600;
-            color: var(--gray);
+            color: var(--gray-600);
             cursor: pointer;
             position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+            border-radius: 8px 8px 0 0;
         }
 
         .tab-btn:hover {
             color: var(--primary);
+            background: var(--gray-50);
         }
 
         .tab-btn.active {
             color: var(--primary);
+            background: var(--gray-50);
         }
 
         .tab-btn.active::after {
@@ -361,19 +210,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 2px;
             background: var(--primary);
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
         }
 
         /* Container */
         .container {
-            max-width: 1400px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 32px 24px;
         }
@@ -384,56 +227,85 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeInContent 0.4s ease;
+            animation: fadeIn 0.3s ease;
         }
 
-        @keyframes fadeInContent {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Filters */
-        .filters-card {
+        .filters-section {
             background: var(--card-bg);
-            padding: 28px;
-            border-radius: 20px;
+            padding: 24px;
+            border-radius: 16px;
             margin-bottom: 32px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid #F0F0F0;
+            border: 1px solid var(--gray-200);
+        }
+
+        .filters-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .filters-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .clear-filters {
+            background: transparent;
+            border: none;
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .clear-filters:hover {
+            background: var(--primary-light);
         }
 
         .filters-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
         }
 
         .filter-group label {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            color: var(--gray-700);
         }
 
         .filter-group select,
         .filter-group input {
             width: 100%;
-            padding: 12px 16px;
-            border: 2px solid #E5E5E5;
-            border-radius: 12px;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
             font-size: 14px;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
             background: white;
+            color: var(--dark);
         }
 
         .filter-group select:focus,
         .filter-group input:focus {
             outline: none;
             border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
         }
 
         /* Section Header */
@@ -441,125 +313,132 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
         }
 
         .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 700;
             color: var(--dark);
         }
 
         .results-count {
             font-size: 14px;
-            color: var(--gray);
+            color: var(--gray-500);
             font-weight: 500;
+            padding: 6px 12px;
+            background: var(--gray-100);
+            border-radius: 8px;
         }
 
         /* Workers Grid */
         .workers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 28px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
         }
 
         .worker-card {
             background: var(--card-bg);
-            border-radius: 20px;
+            border-radius: 16px;
             overflow: hidden;
             box-shadow: var(--shadow-sm);
-            transition: all 0.4s ease;
-            border: 1px solid #F0F0F0;
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
         }
 
         .worker-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
 
         .worker-photo {
             width: 100%;
-            height: 240px;
+            height: 220px;
             object-fit: cover;
-            background: linear-gradient(135deg, #E5E5E5, #F5F5F5);
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-100));
         }
 
         .worker-info {
-            padding: 24px;
+            padding: 20px;
         }
 
         .worker-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
             margin-bottom: 16px;
         }
 
         .worker-name {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--dark);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .worker-service {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent), #FFD93D);
-            color: var(--dark);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
             padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .worker-details {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             margin-bottom: 16px;
         }
 
         .worker-detail {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             font-size: 14px;
-            color: var(--gray);
+            color: var(--gray-600);
         }
 
         .worker-detail-icon {
             font-size: 16px;
+            width: 20px;
         }
 
-        .badge {
+        .availability-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
             margin-bottom: 16px;
         }
 
-        .badge.available {
-            background: #E8F5E9;
-            color: #2E7D32;
+        .availability-badge.available {
+            background: #DCFCE7;
+            color: #166534;
         }
 
-        .badge.unavailable {
-            background: #FFE5E5;
-            color: #D32F2F;
+        .availability-badge.unavailable {
+            background: #FEE2E2;
+            color: #991B1B;
         }
 
-        .badge-dot {
+        .availability-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
             background: currentColor;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .btn-book {
@@ -567,24 +446,23 @@
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            padding: 14px;
-            border-radius: 12px;
-            font-size: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .btn-book:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+            box-shadow: var(--shadow-md);
         }
 
         .btn-book:disabled {
-            background: #CCC;
+            background: var(--gray-300);
             cursor: not-allowed;
+            transform: none;
         }
 
         /* Bookings Grid */
@@ -595,10 +473,10 @@
 
         .booking-card {
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 28px;
+            border-radius: 16px;
+            padding: 24px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid #F0F0F0;
+            border: 1px solid var(--gray-200);
             transition: all 0.3s ease;
         }
 
@@ -611,72 +489,64 @@
             justify-content: space-between;
             align-items: start;
             margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .booking-id {
             font-size: 12px;
-            color: var(--gray);
-            font-weight: 500;
-            letter-spacing: 1px;
+            color: var(--gray-500);
+            font-weight: 600;
+            font-family: 'Courier New', monospace;
         }
 
         .booking-status {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
         }
 
         .booking-status.pending {
-            background: #FFF3E0;
-            color: #E65100;
+            background: #FEF3C7;
+            color: #92400E;
         }
 
         .booking-status.confirmed {
-            background: #E3F2FD;
-            color: #1565C0;
+            background: #DBEAFE;
+            color: #1E40AF;
         }
 
         .booking-status.completed {
-            background: #E8F5E9;
-            color: #2E7D32;
+            background: #DCFCE7;
+            color: #166534;
         }
 
         .booking-status.cancelled {
-            background: #FFE5E5;
-            color: #D32F2F;
+            background: #FEE2E2;
+            color: #991B1B;
         }
 
         .booking-worker {
             display: flex;
             gap: 16px;
             margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #F5F5F5;
-        }
-
-        .booking-worker-photo {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
-            object-fit: cover;
-            background: #F0F0F0;
         }
 
         .booking-worker-info h3 {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 18px;
+            font-weight: 700;
             margin-bottom: 4px;
             color: var(--dark);
         }
 
         .booking-worker-service {
             font-size: 13px;
-            color: var(--gray);
-            margin-bottom: 8px;
+            color: var(--gray-500);
+            font-weight: 500;
         }
 
         .booking-details-grid {
@@ -692,15 +562,13 @@
         }
 
         .booking-detail-label {
-            font-size: 11px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-size: 12px;
+            color: var(--gray-500);
             font-weight: 600;
         }
 
         .booking-detail-value {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--dark);
         }
@@ -713,9 +581,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(26, 26, 46, 0.85);
-            backdrop-filter: blur(8px);
-            z-index: 1500;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
             overflow-y: auto;
             padding: 40px 20px;
         }
@@ -724,71 +592,182 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            animation: fadeIn 0.2s ease;
         }
 
         .booking-modal-content {
             background: var(--card-bg);
-            border-radius: 24px;
-            padding: 40px;
+            border-radius: 20px;
+            padding: 32px;
             max-width: 600px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            animation: slideUp 0.4s ease;
+            animation: slideUp 0.3s ease;
+            box-shadow: var(--shadow-xl);
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 28px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--gray-200);
         }
 
         .modal-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
+            color: var(--dark);
         }
 
         .close-btn {
-            background: none;
+            background: var(--gray-100);
             border: none;
-            font-size: 32px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             cursor: pointer;
-            color: var(--gray);
-            transition: all 0.3s ease;
-            line-height: 1;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .close-btn:hover {
-            color: var(--primary);
-            transform: rotate(90deg);
+            background: var(--gray-200);
+            color: var(--dark);
         }
 
         .worker-summary {
-            background: linear-gradient(135deg, #FFF9F5, #FFE5E5);
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 28px;
-            border: 2px solid var(--primary);
+            background: linear-gradient(135deg, var(--primary-light), #EFF6FF);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            border: 1px solid var(--primary-light);
         }
 
         .worker-summary h3 {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             margin-bottom: 12px;
+            color: var(--dark);
         }
 
-        .worker-summary p {
+        .worker-summary-detail {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 14px;
-            color: var(--gray);
+            color: var(--gray-600);
             margin-bottom: 6px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--gray-700);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.2s ease;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-light);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .message {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-10px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .message.error {
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 1px solid #FECACA;
+        }
+
+        .message.success {
+            background: #DCFCE7;
+            color: #166534;
+            border: 1px solid #BBF7D0;
+        }
+
+        .message.warning {
+            background: #FEF3C7;
+            color: #92400E;
+            border: 1px solid #FDE68A;
+        }
+
+        .btn-primary {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
         }
 
         /* Loading & Empty States */
@@ -798,9 +777,9 @@
         }
 
         .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #F0F0F0;
+            width: 48px;
+            height: 48px;
+            border: 4px solid var(--gray-200);
             border-top: 4px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -812,8 +791,9 @@
         }
 
         .loading-text {
-            color: var(--gray);
-            font-size: 16px;
+            color: var(--gray-500);
+            font-size: 15px;
+            font-weight: 500;
         }
 
         .empty-state {
@@ -822,45 +802,39 @@
         }
 
         .empty-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            opacity: 0.5;
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.4;
         }
 
         .empty-state h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            margin-bottom: 12px;
+            font-size: 20px;
+            margin-bottom: 8px;
             color: var(--dark);
+            font-weight: 700;
         }
 
         .empty-state p {
-            font-size: 16px;
-            color: var(--gray);
+            font-size: 14px;
+            color: var(--gray-500);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .auth-container {
-                padding: 32px 24px;
-            }
-
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
             .nav-container {
                 flex-direction: column;
-                gap: 16px;
+                gap: 12px;
+                align-items: flex-start;
+            }
+
+            .user-info {
+                width: 100%;
+                justify-content: space-between;
             }
 
             .tab-nav-container {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
-            }
-
-            .tab-btn {
-                white-space: nowrap;
             }
 
             .section-header {
@@ -881,115 +855,19 @@
                 grid-template-columns: 1fr;
             }
 
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
             .booking-modal-content {
-                padding: 28px 20px;
+                padding: 24px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div class="auth-page" id="loginPage">
-        <div class="auth-container">
-            <div class="auth-brand">
-                <div class="auth-brand-icon">🏠</div>
-                <h1>Apna Kaam</h1>
-                <p>Home Help Services</p>
-            </div>
-
-            <h2 class="auth-title">Welcome Back</h2>
-            <p class="auth-subtitle">Login to continue booking services</p>
-
-            <div id="loginMessage"></div>
-
-            <form onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label>Email Address <span class="required">*</span></label>
-                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password <span class="required">*</span></label>
-                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                </div>
-
-                <button type="submit" class="btn-primary" id="loginBtn">Login</button>
-            </form>
-
-            <p class="text-link">
-                Don't have an account? <a href="#" onclick="showSignupPage(event)">Sign up</a>
-            </p>
-        </div>
-    </div>
-
-    <!-- Signup Page -->
-    <div class="auth-page page-hidden" id="signupPage">
-        <div class="auth-container">
-            <div class="auth-brand">
-                <div class="auth-brand-icon">🏠</div>
-                <h1>Apna Kaam</h1>
-                <p>Home Help Services</p>
-            </div>
-
-            <h2 class="auth-title">Create Account</h2>
-            <p class="auth-subtitle">Sign up to start booking services</p>
-
-            <div id="signupMessage"></div>
-
-            <form onsubmit="handleSignup(event)">
-                <div class="form-group">
-                    <label>Full Name <span class="required">*</span></label>
-                    <input type="text" id="signupName" placeholder="Enter your full name" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email Address <span class="required">*</span></label>
-                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password <span class="required">*</span></label>
-                    <input type="password" id="signupPassword" placeholder="Minimum 6 characters" minlength="6" required>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Phone Number <span class="required">*</span></label>
-                        <input type="tel" id="signupPhone" placeholder="10 digits" maxlength="10" pattern="[0-9]{10}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Age <span class="required">*</span></label>
-                        <input type="number" id="signupAge" placeholder="Your age" min="18" max="100" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Area / Location <span class="required">*</span></label>
-                    <input type="text" id="signupArea" placeholder="e.g., Salt Lake, Kolkata" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Gender <span class="required">*</span></label>
-                    <select id="signupGender" required>
-                        <option value="">Select Gender</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                        <option value="Other">Other</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn-primary" id="signupBtn">Create Account</button>
-            </form>
-
-            <p class="text-link">
-                Already have an account? <a href="#" onclick="showLoginPage(event)">Login</a>
-            </p>
-        </div>
-    </div>
-
     <!-- Main App -->
-    <div id="mainApp" class="page-hidden">
+    <div id="mainApp">
         <!-- Top Navigation -->
         <nav class="navbar">
             <div class="nav-container">
@@ -997,12 +875,18 @@
                     <div class="brand-icon">🏠</div>
                     <div class="brand-text">
                         <h1>Apna Kaam</h1>
-                        <p>Home Help Services</p>
+                        <p>Professional Home Services</p>
                     </div>
                 </div>
                 <div class="nav-actions">
-                    <span class="user-badge" id="userBadge">Loading...</span>
-                    <button class="btn-logout" onclick="handleLogout()">Logout</button>
+                    <div class="user-info" id="userInfoContainer">
+                        <div class="user-avatar" id="userAvatar">U</div>
+                        <div class="user-details">
+                            <div class="user-name" id="userName">Guest User</div>
+                            <div class="user-email" id="userEmail">guest@apnakaam.com</div>
+                        </div>
+                    </div>
+                    <button class="btn-login" id="loginButton" style="display: none;" onclick="redirectToLogin()">Login</button>
                 </div>
             </div>
         </nav>
@@ -1020,7 +904,11 @@
             <!-- Browse Workers Tab -->
             <div class="tab-content active" id="browseTab">
                 <!-- Filters -->
-                <div class="filters-card">
+                <div class="filters-section">
+                    <div class="filters-header">
+                        <h3>Filter Workers</h3>
+                        <button class="clear-filters" onclick="clearFilters()">Clear All</button>
+                    </div>
                     <div class="filters-grid">
                         <div class="filter-group">
                             <label>Service Type</label>
@@ -1037,15 +925,15 @@
 
                         <div class="filter-group">
                             <label>Area</label>
-                            <input type="text" id="areaFilter" placeholder="e.g., Salt Lake" oninput="applyFilters()">
+                            <input type="text" id="areaFilter" placeholder="Search by area..." oninput="applyFilters()">
                         </div>
 
                         <div class="filter-group">
                             <label>Availability</label>
                             <select id="availabilityFilter" onchange="applyFilters()">
                                 <option value="">All</option>
-                                <option value="true">Available</option>
-                                <option value="false">Unavailable</option>
+                                <option value="true">Available Now</option>
+                                <option value="false">Not Available</option>
                             </select>
                         </div>
                     </div>
@@ -1084,8 +972,8 @@
     <div class="booking-modal" id="bookingModal">
         <div class="booking-modal-content">
             <div class="modal-header">
-                <h2>Confirm Booking</h2>
-                <button class="close-btn" onclick="closeBookingModal()">&times;</button>
+                <h2>Book Service</h2>
+                <button class="close-btn" onclick="closeBookingModal()">×</button>
             </div>
 
             <div id="bookingMessage"></div>
@@ -1093,41 +981,37 @@
             <div class="worker-summary" id="workerSummary"></div>
 
             <form id="bookingForm" onsubmit="submitBooking(event)">
-                <div class="form-group">
-                    <label>Service Date</label>
-                    <input type="date" id="bookingDate" required>
-                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Service Date</label>
+                        <input type="date" id="bookingDate" required>
+                    </div>
 
-                <div class="form-group">
-                    <label>Service Time</label>
-                    <select id="bookingTime" required>
-                        <option value="">Select Time</option>
-                        <option value="Morning (6AM-12PM)">Morning (6AM-12PM)</option>
-                        <option value="Afternoon (12PM-6PM)">Afternoon (12PM-6PM)</option>
-                        <option value="Evening (6PM-10PM)">Evening (6PM-10PM)</option>
-                    </select>
+                    <div class="form-group">
+                        <label>Start Time</label>
+                        <input type="time" id="bookingStartTime" required>
+                    </div>
                 </div>
 
                 <div class="form-group">
                     <label>Service Duration</label>
                     <select id="bookingDuration" required>
                         <option value="">Select Duration</option>
-                        <option value="1 Hour">1 Hour - ₹200</option>
-                        <option value="2 Hours">2 Hours - ₹350</option>
-                        <option value="4 Hours">4 Hours - ₹600</option>
-                        <option value="Full Day">Full Day - ₹1000</option>
-                        <option value="Monthly">Monthly - ₹8000</option>
+                        <option value="1">1 Hour - ₹200</option>
+                        <option value="2">2 Hours - ₹350</option>
+                        <option value="4">4 Hours - ₹600</option>
+                        <option value="8">8 Hours (Full Day) - ₹1000</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Your Address</label>
-                    <input type="text" id="bookingAddress" placeholder="Full address with landmark" required>
+                    <label>Service Address</label>
+                    <input type="text" id="bookingAddress" placeholder="Enter complete address with landmark" required>
                 </div>
 
                 <div class="form-group">
                     <label>Special Instructions (Optional)</label>
-                    <input type="text" id="bookingInstructions" placeholder="Any specific requirements">
+                    <textarea id="bookingInstructions" placeholder="Any specific requirements or preferences"></textarea>
                 </div>
 
                 <button type="submit" class="btn-primary" id="bookingSubmitBtn">Confirm Booking</button>
@@ -1137,7 +1021,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js";
         import { getDatabase, ref, get, push, set, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -1165,153 +1049,47 @@
             if (user) {
                 currentUser = user;
                 
-                // Check if user profile exists in database
+                // Get user profile
                 const userRef = ref(database, 'customers/' + user.uid);
                 const userSnapshot = await get(userRef);
                 
                 if (userSnapshot.exists()) {
                     const userData = userSnapshot.val();
-                    document.getElementById('userBadge').textContent = userData.name || user.email;
+                    document.getElementById('userName').textContent = userData.name || 'User';
+                    document.getElementById('userEmail').textContent = userData.email || user.email;
+                    document.getElementById('userAvatar').textContent = (userData.name || 'U').charAt(0).toUpperCase();
                 } else {
-                    // Basic profile exists from signup
-                    document.getElementById('userBadge').textContent = user.email;
+                    document.getElementById('userName').textContent = user.email.split('@')[0];
+                    document.getElementById('userEmail').textContent = user.email;
+                    document.getElementById('userAvatar').textContent = user.email.charAt(0).toUpperCase();
                 }
                 
-                // Show main app
-                document.getElementById('loginPage').classList.add('page-hidden');
-                document.getElementById('signupPage').classList.add('page-hidden');
-                document.getElementById('mainApp').classList.remove('page-hidden');
+                // Hide login button, show user info normally
+                document.getElementById('loginButton').style.display = 'none';
+                document.getElementById('userInfoContainer').classList.remove('logged-out');
                 
                 loadWorkers();
                 loadBookings();
             } else {
+                // No user logged in - show guest mode
                 currentUser = null;
-                // Show login page
-                document.getElementById('mainApp').classList.add('page-hidden');
-                document.getElementById('signupPage').classList.add('page-hidden');
-                document.getElementById('loginPage').classList.remove('page-hidden');
+                document.getElementById('userName').textContent = 'Guest User';
+                document.getElementById('userEmail').textContent = 'Not logged in';
+                document.getElementById('userAvatar').textContent = '🔒';
+                
+                // Show login button, highlight user info
+                document.getElementById('loginButton').style.display = 'block';
+                document.getElementById('userInfoContainer').classList.add('logged-out');
+                
+                loadWorkers();
             }
         });
 
-        // Show signup page
-        window.showSignupPage = function(e) {
-            e.preventDefault();
-            document.getElementById('loginPage').classList.add('page-hidden');
-            document.getElementById('signupPage').classList.remove('page-hidden');
+        // Redirect to login
+        window.redirectToLogin = function() {
+            // Update this URL to your actual login page
+            window.location.href = '/login.html';
         };
-
-        // Show login page
-        window.showLoginPage = function(e) {
-            e.preventDefault();
-            document.getElementById('signupPage').classList.add('page-hidden');
-            document.getElementById('loginPage').classList.remove('page-hidden');
-        };
-
-        // Handle login
-        window.handleLogin = async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            const loginBtn = document.getElementById('loginBtn');
-
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Logging in...';
-
-            try {
-                showMessage('loginMessage', 'Logging in...', 'success');
-                await signInWithEmailAndPassword(auth, email, password);
-                showMessage('loginMessage', 'Login successful!', 'success');
-            } catch (error) {
-                console.error('Login error:', error);
-                let message = 'Login failed. ';
-                
-                if (error.code === 'auth/user-not-found') {
-                    message += 'No account found with this email.';
-                } else if (error.code === 'auth/wrong-password') {
-                    message += 'Incorrect password.';
-                } else if (error.code === 'auth/invalid-email') {
-                    message += 'Invalid email address.';
-                } else if (error.code === 'auth/too-many-requests') {
-                    message += 'Too many failed attempts. Try again later.';
-                } else {
-                    message += error.message;
-                }
-                
-                showMessage('loginMessage', message, 'error');
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Login';
-            }
-        };
-
-        // Handle signup
-        window.handleSignup = async function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('signupName').value.trim();
-            const email = document.getElementById('signupEmail').value.trim();
-            const password = document.getElementById('signupPassword').value;
-            const phone = document.getElementById('signupPhone').value.trim();
-            const age = document.getElementById('signupAge').value;
-            const area = document.getElementById('signupArea').value.trim();
-            const gender = document.getElementById('signupGender').value;
-            const signupBtn = document.getElementById('signupBtn');
-
-            signupBtn.disabled = true;
-            signupBtn.textContent = 'Creating Account...';
-
-            try {
-                showMessage('signupMessage', 'Creating your account...', 'success');
-                
-                // Create user account
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // Save customer data to database
-                const customerData = {
-                    uid: user.uid,
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    age: parseInt(age),
-                    area: area,
-                    gender: gender,
-                    createdAt: Date.now(),
-                    role: 'customer'
-                };
-
-                await set(ref(database, 'customers/' + user.uid), customerData);
-
-                showMessage('signupMessage', 'Account created successfully! Redirecting...', 'success');
-            } catch (error) {
-                console.error('Signup error:', error);
-                let message = 'Signup failed. ';
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    message += 'An account with this email already exists.';
-                } else if (error.code === 'auth/invalid-email') {
-                    message += 'Invalid email address.';
-                } else if (error.code === 'auth/weak-password') {
-                    message += 'Password is too weak.';
-                } else {
-                    message += error.message;
-                }
-                
-                showMessage('signupMessage', message, 'error');
-                signupBtn.disabled = false;
-                signupBtn.textContent = 'Create Account';
-            }
-        };
-
-        // Show message
-        function showMessage(containerId, text, type) {
-            const container = document.getElementById(containerId);
-            if (!text) {
-                container.innerHTML = '';
-                return;
-            }
-            container.innerHTML = `<div class="message ${type}">${text}</div>`;
-        }
 
         // Tab switching
         window.switchTab = function(tabName) {
@@ -1360,26 +1138,32 @@
         function renderWorkers(workers = null) {
             const workersToShow = workers || allWorkers;
             const container = document.getElementById('workersContainer');
-            document.getElementById('resultsCount').textContent = `${workersToShow.length} workers found`;
+            document.getElementById('resultsCount').textContent = `${workersToShow.length} workers`;
 
             if (workersToShow.length === 0) {
                 container.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><h3>No workers found</h3><p>Try adjusting your filters</p></div>';
                 return;
             }
 
+            const isLoggedIn = currentUser !== null;
+            const bookButtonText = isLoggedIn ? 'Book Now' : '🔒 Login to Book';
+
             container.innerHTML = `
                 <div class="workers-grid">
                     ${workersToShow.map(worker => `
                         <div class="worker-card">
-                            <img src="${worker.photoUrl || 'https://via.placeholder.com/300x240?text=No+Photo'}" 
+                            <img src="${worker.photoUrl || 'https://via.placeholder.com/320x220?text=No+Photo'}" 
                                  alt="${worker.name}" 
                                  class="worker-photo"
-                                 onerror="this.src='https://via.placeholder.com/300x240?text=No+Photo'">
+                                 onerror="this.src='https://via.placeholder.com/320x220?text=No+Photo'">
                             <div class="worker-info">
                                 <div class="worker-header">
                                     <div>
                                         <div class="worker-name">${worker.name}</div>
-                                        <span class="worker-service">${worker.serviceType}</span>
+                                        <span class="worker-service">
+                                            <span>💼</span>
+                                            ${worker.serviceType}
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="worker-details">
@@ -1393,17 +1177,17 @@
                                     </div>
                                     <div class="worker-detail">
                                         <span class="worker-detail-icon">👤</span>
-                                        <span>${worker.age} years old</span>
+                                        <span>${worker.age} years old • ${worker.gender}</span>
                                     </div>
                                 </div>
-                                <span class="badge ${worker.available ? 'available' : 'unavailable'}">
-                                    <span class="badge-dot"></span>
-                                    ${worker.available ? 'Available' : 'Unavailable'}
+                                <span class="availability-badge ${worker.available ? 'available' : 'unavailable'}">
+                                    <span class="availability-dot"></span>
+                                    ${worker.available ? 'Available Now' : 'Currently Unavailable'}
                                 </span>
                                 <button class="btn-book" 
                                         onclick="openBookingModal('${worker.id}')"
                                         ${!worker.available ? 'disabled' : ''}>
-                                    ${worker.available ? 'Book Now' : 'Not Available'}
+                                    ${worker.available ? bookButtonText : 'Not Available'}
                                 </button>
                             </div>
                         </div>
@@ -1435,9 +1219,21 @@
             renderWorkers(filtered);
         };
 
+        // Clear filters
+        window.clearFilters = function() {
+            document.getElementById('serviceFilter').value = '';
+            document.getElementById('areaFilter').value = '';
+            document.getElementById('availabilityFilter').value = '';
+            renderWorkers();
+        };
+
         // Load bookings
         async function loadBookings() {
-            if (!currentUser) return;
+            if (!currentUser) {
+                document.getElementById('bookingsContainer').innerHTML = 
+                    '<div class="empty-state"><div class="empty-icon">🔒</div><h3>Please login</h3><p>Login to view your bookings</p></div>';
+                return;
+            }
 
             try {
                 const bookingsRef = ref(database, 'bookings');
@@ -1479,8 +1275,10 @@
                     ${allBookings.map(booking => `
                         <div class="booking-card">
                             <div class="booking-header">
-                                <div class="booking-id">Booking #${booking.id.substring(0, 8)}</div>
-                                <span class="booking-status ${booking.status}">${booking.status}</span>
+                                <div class="booking-id">#${booking.id.substring(0, 10)}</div>
+                                <span class="booking-status ${booking.status}">
+                                    ${booking.status.toUpperCase()}
+                                </span>
                             </div>
                             <div class="booking-worker">
                                 <div class="booking-worker-info">
@@ -1495,11 +1293,11 @@
                                 </div>
                                 <div class="booking-detail">
                                     <div class="booking-detail-label">Time</div>
-                                    <div class="booking-detail-value">${booking.time}</div>
+                                    <div class="booking-detail-value">${booking.startTime} - ${booking.endTime || 'TBD'}</div>
                                 </div>
                                 <div class="booking-detail">
                                     <div class="booking-detail-label">Duration</div>
-                                    <div class="booking-detail-value">${booking.duration}</div>
+                                    <div class="booking-detail-value">${booking.durationHours} hour(s)</div>
                                 </div>
                                 <div class="booking-detail">
                                     <div class="booking-detail-label">Address</div>
@@ -1507,7 +1305,7 @@
                                 </div>
                                 ${booking.instructions ? `
                                 <div class="booking-detail" style="grid-column: 1 / -1;">
-                                    <div class="booking-detail-label">Instructions</div>
+                                    <div class="booking-detail-label">Special Instructions</div>
                                     <div class="booking-detail-value">${booking.instructions}</div>
                                 </div>
                                 ` : ''}
@@ -1520,14 +1318,33 @@
 
         // Open booking modal
         window.openBookingModal = function(workerId) {
+            // Check if user is logged in
+            if (!currentUser) {
+                showBookingMessage('Please login to book a service. You will be redirected to the login page.', 'error');
+                // Redirect to login page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/login.html'; // Update this to your login page URL
+                }, 2000);
+                return;
+            }
+
             selectedWorker = allWorkers.find(w => w.id === workerId);
             if (!selectedWorker) return;
 
             document.getElementById('workerSummary').innerHTML = `
                 <h3>${selectedWorker.name}</h3>
-                <p><strong>Service:</strong> ${selectedWorker.serviceType}</p>
-                <p><strong>Area:</strong> ${selectedWorker.area}</p>
-                <p><strong>Experience:</strong> ${selectedWorker.experience} years</p>
+                <div class="worker-summary-detail">
+                    <span>💼</span>
+                    <span><strong>Service:</strong> ${selectedWorker.serviceType}</span>
+                </div>
+                <div class="worker-summary-detail">
+                    <span>📍</span>
+                    <span><strong>Area:</strong> ${selectedWorker.area}</span>
+                </div>
+                <div class="worker-summary-detail">
+                    <span>⭐</span>
+                    <span><strong>Experience:</strong> ${selectedWorker.experience} years</span>
+                </div>
             `;
 
             const today = new Date().toISOString().split('T')[0];
@@ -1540,21 +1357,139 @@
         window.closeBookingModal = function() {
             document.getElementById('bookingModal').classList.remove('active');
             document.getElementById('bookingForm').reset();
-            document.getElementById('bookingMessage').innerHTML = '';
+            showBookingMessage('', '');
         };
+
+        // Check if worker is available at the requested time
+        async function checkWorkerAvailability(workerId, date, startTime, durationHours) {
+            try {
+                // Get all bookings for this worker on this date
+                const bookingsRef = ref(database, 'bookings');
+                const snapshot = await get(bookingsRef);
+                
+                if (!snapshot.exists()) {
+                    return { available: true };
+                }
+
+                const requestedStart = parseTime(startTime);
+                const requestedEnd = requestedStart + (durationHours * 60); // in minutes
+
+                let conflicts = [];
+
+                snapshot.forEach((child) => {
+                    const booking = child.val();
+                    
+                    // Only check bookings for this worker on this date that aren't cancelled
+                    if (booking.workerId === workerId && 
+                        booking.date === date && 
+                        booking.status !== 'cancelled') {
+                        
+                        const bookingStart = parseTime(booking.startTime);
+                        const bookingEnd = bookingStart + (booking.durationHours * 60);
+                        
+                        // Add 60 minutes (1 hour) cooldown period after each booking
+                        const bookingEndWithCooldown = bookingEnd + 60;
+
+                        // Check for overlap including cooldown
+                        if (!(requestedEnd <= bookingStart || requestedStart >= bookingEndWithCooldown)) {
+                            conflicts.push({
+                                startTime: booking.startTime,
+                                endTime: formatTime(bookingEnd),
+                                endWithCooldown: formatTime(bookingEndWithCooldown)
+                            });
+                        }
+                    }
+                });
+
+                if (conflicts.length > 0) {
+                    return {
+                        available: false,
+                        conflicts: conflicts
+                    };
+                }
+
+                return { available: true };
+            } catch (error) {
+                console.error('Error checking availability:', error);
+                return { available: false, error: 'Error checking availability' };
+            }
+        }
+
+        // Parse time string (HH:MM) to minutes
+        function parseTime(timeStr) {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        }
+
+        // Format minutes to time string (HH:MM)
+        function formatTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+        }
 
         // Submit booking
         window.submitBooking = async function(event) {
             event.preventDefault();
 
+            if (!currentUser) {
+                showBookingMessage('Please login to book a service', 'error');
+                return;
+            }
+
             const submitBtn = document.getElementById('bookingSubmitBtn');
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Booking...';
+            submitBtn.textContent = 'Checking availability...';
 
             try {
+                const date = document.getElementById('bookingDate').value;
+                const startTime = document.getElementById('bookingStartTime').value;
+                const durationHours = parseInt(document.getElementById('bookingDuration').value);
+                const address = document.getElementById('bookingAddress').value;
+                const instructions = document.getElementById('bookingInstructions').value;
+
+                // Calculate end time
+                const startMinutes = parseTime(startTime);
+                const endMinutes = startMinutes + (durationHours * 60);
+                const endTime = formatTime(endMinutes);
+
+                // Check availability
+                const availabilityCheck = await checkWorkerAvailability(
+                    selectedWorker.id, 
+                    date, 
+                    startTime, 
+                    durationHours
+                );
+
+                if (!availabilityCheck.available) {
+                    if (availabilityCheck.error) {
+                        showBookingMessage(availabilityCheck.error, 'error');
+                    } else {
+                        const conflict = availabilityCheck.conflicts[0];
+                        showBookingMessage(
+                            `This worker is not available at the requested time. They have a booking from ${conflict.startTime} to ${conflict.endTime}. Please book after ${conflict.endWithCooldown} (includes 1-hour cooldown).`,
+                            'warning'
+                        );
+                    }
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Confirm Booking';
+                    return;
+                }
+
+                submitBtn.textContent = 'Creating booking...';
+
+                // Get customer data
                 const customerRef = ref(database, 'customers/' + currentUser.uid);
                 const customerSnap = await get(customerRef);
                 const customerData = customerSnap.val() || {};
+
+                // Get pricing based on duration
+                const pricing = {
+                    1: 200,
+                    2: 350,
+                    4: 600,
+                    8: 1000
+                };
 
                 const bookingData = {
                     customerId: currentUser.uid,
@@ -1565,20 +1500,21 @@
                     workerName: selectedWorker.name,
                     agentId: selectedWorker.agentId || '',
                     serviceType: selectedWorker.serviceType,
-                    date: document.getElementById('bookingDate').value,
-                    time: document.getElementById('bookingTime').value,
-                    duration: document.getElementById('bookingDuration').value,
-                    address: document.getElementById('bookingAddress').value,
-                    instructions: document.getElementById('bookingInstructions').value,
+                    date: date,
+                    startTime: startTime,
+                    endTime: endTime,
+                    durationHours: durationHours,
+                    address: address,
+                    instructions: instructions,
                     status: 'pending',
-                    price: 0,
+                    price: pricing[durationHours] || 0,
                     createdAt: Date.now()
                 };
 
                 const bookingsRef = ref(database, 'bookings');
                 await push(bookingsRef, bookingData);
 
-                showBookingMessage('Booking confirmed! Agent will contact you soon.', 'success');
+                showBookingMessage('Booking confirmed successfully! You will be contacted soon.', 'success');
                 
                 setTimeout(() => {
                     closeBookingModal();
@@ -1588,7 +1524,6 @@
             } catch (error) {
                 console.error('Error creating booking:', error);
                 showBookingMessage('Failed to create booking. Please try again.', 'error');
-            } finally {
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Confirm Booking';
             }
@@ -1596,19 +1531,13 @@
 
         // Show booking message
         function showBookingMessage(text, type) {
-            document.getElementById('bookingMessage').innerHTML = 
-                `<div class="message ${type}">${text}</div>`;
-        }
-
-        // Logout
-        window.handleLogout = async function() {
-            try {
-                await signOut(auth);
-                window.location.reload();
-            } catch (error) {
-                console.error('Error logging out:', error);
+            const container = document.getElementById('bookingMessage');
+            if (!text) {
+                container.innerHTML = '';
+                return;
             }
-        };
+            container.innerHTML = `<div class="message ${type}">${text}</div>`;
+        }
     </script>
 </body>
 </html>
