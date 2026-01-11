@@ -1234,8 +1234,19 @@
         ];
 
         const timeSlots = [
-            '06:00', '07:00', '08:00', '09:00', '10:00', '11:00',
-            '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'
+            { value: '06:00', display: '6:00 AM' },
+            { value: '07:00', display: '7:00 AM' },
+            { value: '08:00', display: '8:00 AM' },
+            { value: '09:00', display: '9:00 AM' },
+            { value: '10:00', display: '10:00 AM' },
+            { value: '11:00', display: '11:00 AM' },
+            { value: '12:00', display: '12:00 PM' },
+            { value: '13:00', display: '1:00 PM' },
+            { value: '14:00', display: '2:00 PM' },
+            { value: '15:00', display: '3:00 PM' },
+            { value: '16:00', display: '4:00 PM' },
+            { value: '17:00', display: '5:00 PM' },
+            { value: '18:00', display: '6:00 PM' }
         ];
 
         const durationOptions = [
@@ -1344,7 +1355,11 @@
             });
             cardElement.classList.add('selected');
             
-            document.getElementById('btnNext').disabled = false;
+            // Auto-advance to next step
+            setTimeout(() => {
+                currentStep++;
+                updateStepUI();
+            }, 300);
         }
 
         function initializeDatetime() {
@@ -1380,8 +1395,8 @@
             });
 
             const timeSlotsContainer = document.getElementById('timeSlots');
-            timeSlotsContainer.innerHTML = timeSlots.map(time => `
-                <div class="time-slot" data-time="${time}">${time}</div>
+            timeSlotsContainer.innerHTML = timeSlots.map(slot => `
+                <div class="time-slot" data-time="${slot.value}">${slot.display}</div>
             `).join('');
 
             document.querySelectorAll('.time-slot').forEach(slot => {
@@ -1404,6 +1419,13 @@
         function checkStep2Complete() {
             const complete = bookingData.date && bookingData.time && bookingData.duration;
             document.getElementById('btnNext').disabled = !complete;
+            
+            // Auto-advance when all fields are selected
+            if (complete) {
+                setTimeout(() => {
+                    nextStep();
+                }, 400);
+            }
         }
 
         async function findAvailableWorkers() {
@@ -1520,7 +1542,12 @@
             });
             cardElement.classList.add('selected');
             
-            document.getElementById('btnNext').disabled = false;
+            // Auto-advance to next step
+            setTimeout(() => {
+                currentStep++;
+                updateStepUI();
+                renderBookingSummary();
+            }, 400);
         }
 
         async function checkWorkerAvailability(workerId, date, startTime, durationHours) {
@@ -1620,8 +1647,6 @@
 
             if (currentStep === 2) {
                 await findAvailableWorkers();
-            } else if (currentStep === 3) {
-                renderBookingSummary();
             }
 
             currentStep++;
@@ -1658,10 +1683,16 @@
             
             btnBack.style.display = currentStep === 1 ? 'none' : 'block';
             
-            if (currentStep === 4) {
-                btnNext.textContent = 'Confirm Booking';
+            // Hide Next button on steps 1 and 3 (auto-advance steps)
+            if (currentStep === 1 || currentStep === 3) {
+                btnNext.style.display = 'none';
             } else {
-                btnNext.textContent = 'Next →';
+                btnNext.style.display = 'block';
+                if (currentStep === 4) {
+                    btnNext.textContent = 'Confirm Booking';
+                } else {
+                    btnNext.textContent = 'Next →';
+                }
             }
 
             if (currentStep === 2) {
