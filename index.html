@@ -1743,7 +1743,7 @@
                     durationHours: bookingData.duration,
                     address: address,
                     instructions: document.getElementById('specialInstructions').value.trim(),
-                    status: 'pending',
+                    status: 'confirmed', // Changed from 'pending' to 'confirmed'
                     price: bookingData.durationPrice,
                     createdAt: Date.now()
                 };
