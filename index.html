@@ -204,125 +204,6 @@
             font-size: 18px;
         }
 
-        .mobile-language-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 1000;
-            display: none;
-            align-items: flex-end;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .mobile-language-modal.active {
-            display: flex;
-        }
-
-        .mobile-language-content {
-            background: var(--surface);
-            border-radius: 20px 20px 0 0;
-            width: 100%;
-            max-height: 70vh;
-            overflow-y: auto;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        .mobile-language-header {
-            padding: 20px 24px;
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: var(--surface);
-            z-index: 10;
-        }
-
-        .mobile-language-header h3 {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .close-modal-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--bg);
-            border: none;
-            font-size: 20px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-
-        .close-modal-btn:hover {
-            background: var(--border);
-            color: var(--text-primary);
-        }
-
-        .mobile-language-options {
-            padding: 12px;
-        }
-
-        .mobile-lang-option {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            cursor: pointer;
-            border-radius: 12px;
-            transition: all 0.2s;
-            margin-bottom: 8px;
-            font-size: 15px;
-            font-weight: 500;
-            color: var(--text-primary);
-            position: relative;
-        }
-
-        .mobile-lang-option:hover {
-            background: var(--bg);
-        }
-
-        .mobile-lang-option.active {
-            background: var(--primary-light);
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .mobile-lang-option .check-icon {
-            margin-left: auto;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            display: none;
-        }
-
-        .mobile-lang-option.active .check-icon {
-            display: block;
-        }
-
-        .mobile-lang-option .language-flag {
-            font-size: 24px;
-        }
-
         .user-menu {
             display: flex;
             align-items: center;
@@ -1335,61 +1216,15 @@
                             <div class="mobile-user-email" id="mobileUserEmail">Not logged in</div>
                         </div>
                     </div>
-                    <button class="btn-login" id="mobileLoginBtn" style="display: none; width: 100%;" onclick="redirectToLogin()"><span data-i18n="login">Login</span></button>
-                </div>
-                <div class="mobile-menu-item" onclick="showMobileLanguageSelector()">
-                    <span class="icon">🌐</span>
-                    <span><span data-i18n="language">Language</span>: <span id="mobileCurrentLanguage">English</span></span>
+                    <button class="btn-login" id="mobileLoginBtn" style="display: none; width: 100%;" onclick="redirectToLogin()">Login</button>
                 </div>
                 <div class="mobile-menu-item" onclick="showBookingsView(); closeMobileMenu();">
                     <span class="icon">📋</span>
-                    <span data-i18n="myBookings">My Bookings</span>
+                    <span>My Bookings</span>
                 </div>
                 <div class="mobile-menu-item" onclick="resetBooking(); closeMobileMenu();">
                     <span class="icon">🏠</span>
-                    <span data-i18n="bookService">Book Service</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Language Modal -->
-        <div class="mobile-language-modal" id="mobileLanguageModal">
-            <div class="mobile-language-content">
-                <div class="mobile-language-header">
-                    <h3 data-i18n="selectLanguage">Select Language</h3>
-                    <button class="close-modal-btn" onclick="closeMobileLanguageSelector()">✕</button>
-                </div>
-                <div class="mobile-language-options">
-                    <div class="mobile-lang-option active" data-lang="en" onclick="changeLanguageMobile('en')">
-                        <span class="language-flag">🇬🇧</span>
-                        <span>English</span>
-                        <span class="check-icon">✓</span>
-                    </div>
-                    <div class="mobile-lang-option" data-lang="hi" onclick="changeLanguageMobile('hi')">
-                        <span class="language-flag">🇮🇳</span>
-                        <span>हिन्दी (Hindi)</span>
-                        <span class="check-icon">✓</span>
-                    </div>
-                    <div class="mobile-lang-option" data-lang="bn" onclick="changeLanguageMobile('bn')">
-                        <span class="language-flag">🇮🇳</span>
-                        <span>বাংলা (Bengali)</span>
-                        <span class="check-icon">✓</span>
-                    </div>
-                    <div class="mobile-lang-option" data-lang="ta" onclick="changeLanguageMobile('ta')">
-                        <span class="language-flag">🇮🇳</span>
-                        <span>தமிழ் (Tamil)</span>
-                        <span class="check-icon">✓</span>
-                    </div>
-                    <div class="mobile-lang-option" data-lang="te" onclick="changeLanguageMobile('te')">
-                        <span class="language-flag">🇮🇳</span>
-                        <span>తెలుగు (Telugu)</span>
-                        <span class="check-icon">✓</span>
-                    </div>
-                    <div class="mobile-lang-option" data-lang="mr" onclick="changeLanguageMobile('mr')">
-                        <span class="language-flag">🇮🇳</span>
-                        <span>मराठी (Marathi)</span>
-                        <span class="check-icon">✓</span>
-                    </div>
+                    <span>Book Service</span>
                 </div>
             </div>
         </div>
@@ -1399,6 +1234,7 @@
         <div id="bookingFlow">
             <div class="page-header">
                 <h1 class="page-title" data-i18n="bookService">Book a Service</h1>
+                <p class="page-subtitle" data-i18n="bookServiceSubtitle">Complete the steps below to schedule your home service</p>
             </div>
 
             <div class="progress-container">
@@ -1513,14 +1349,13 @@
         const translations = {
             en: {
                 bookService: "Book a Service",
+                bookServiceSubtitle: "Complete the steps below to schedule your home service",
                 stepService: "Service",
                 stepSchedule: "Schedule",
                 stepWorker: "Worker",
                 stepConfirm: "Confirm",
                 myBookings: "My Bookings",
                 login: "Login",
-                language: "Language",
-                selectLanguage: "Select Language",
                 serviceDate: "Service Date",
                 duration: "Duration",
                 startTime: "Start Time",
@@ -1552,14 +1387,13 @@
             },
             hi: {
                 bookService: "सेवा बुक करें",
+                bookServiceSubtitle: "अपनी होम सर्विस शेड्यूल करने के लिए नीचे दिए गए चरणों को पूरा करें",
                 stepService: "सेवा",
                 stepSchedule: "समय",
                 stepWorker: "कर्मचारी",
                 stepConfirm: "पुष्टि",
                 myBookings: "मेरी बुकिंग",
                 login: "लॉगिन",
-                language: "भाषा",
-                selectLanguage: "भाषा चुनें",
                 serviceDate: "सेवा तिथि",
                 duration: "अवधि",
                 startTime: "शुरुआत का समय",
@@ -1591,14 +1425,13 @@
             },
             bn: {
                 bookService: "একটি পরিষেবা বুক করুন",
+                bookServiceSubtitle: "আপনার হোম সার্ভিস শিডিউল করতে নিচের ধাপগুলি সম্পূর্ণ করুন",
                 stepService: "পরিষেবা",
                 stepSchedule: "সময়সূচী",
                 stepWorker: "কর্মী",
                 stepConfirm: "নিশ্চিত করুন",
                 myBookings: "আমার বুকিং",
                 login: "লগইন",
-                language: "ভাষা",
-                selectLanguage: "ভাষা নির্বাচন করুন",
                 serviceDate: "পরিষেবার তারিখ",
                 duration: "সময়কাল",
                 startTime: "শুরুর সময়",
@@ -1630,14 +1463,13 @@
             },
             ta: {
                 bookService: "சேவையை முன்பதிவு செய்யவும்",
+                bookServiceSubtitle: "உங்கள் வீட்டு சேவையை திட்டமிட கீழே உள்ள படிகளை முடிக்கவும்",
                 stepService: "சேவை",
                 stepSchedule: "அட்டவணை",
                 stepWorker: "பணியாளர்",
                 stepConfirm: "உறுதிப்படுத்து",
                 myBookings: "எனது முன்பதிவுகள்",
                 login: "உள்நுழைய",
-                language: "மொழி",
-                selectLanguage: "மொழியைத் தேர்ந்தெடுக்கவும்",
                 serviceDate: "சேவை தேதி",
                 duration: "காலம்",
                 startTime: "தொடக்க நேரம்",
@@ -1669,14 +1501,13 @@
             },
             te: {
                 bookService: "సేవను బుక్ చేయండి",
+                bookServiceSubtitle: "మీ హోం సర్వీస్‌ను షెడ్యూల్ చేయడానికి దిగువ దశలను పూర్తి చేయండి",
                 stepService: "సేవ",
                 stepSchedule: "షెడ్యూల్",
                 stepWorker: "కార్మికుడు",
                 stepConfirm: "నిర్ధారించండి",
                 myBookings: "నా బుకింగ్‌లు",
                 login: "లాగిన్",
-                language: "భాష",
-                selectLanguage: "భాషను ఎంచుకోండి",
                 serviceDate: "సేవ తేదీ",
                 duration: "వ్యవధి",
                 startTime: "ప్రారంభ సమయం",
@@ -1715,8 +1546,6 @@
                 stepConfirm: "पुष्टी करा",
                 myBookings: "माझी बुकिंग",
                 login: "लॉगिन",
-                language: "भाषा",
-                selectLanguage: "भाषा निवडा",
                 serviceDate: "सेवा तारीख",
                 duration: "कालावधी",
                 startTime: "सुरुवातीची वेळ",
@@ -1724,28 +1553,6 @@
                 addressPlaceholder: "लँडमार्कसह संपूर्ण पत्ता प्रविष्ट करा",
                 specialInstructions: "विशेष सूचना (पर्यायी)",
                 instructionsPlaceholder: "कोणत्याही विशिष्ट आवश्यकता किंवा प्राधान्ये...",
-                confirmBooking: "बुकिंगची पुष्टी करा",
-                back: "मागे",
-                next: "पुढे",
-                bookingSummary: "बुकिंग सारांश",
-                serviceType: "सेवा प्रकार",
-                worker: "कामगार",
-                date: "तारीख",
-                time: "वेळ",
-                totalAmount: "एकूण रक्कम",
-                viewBookings: "माझी बुकिंग",
-                viewBookingsSubtitle: "तुमची सेवा बुकिंग पहा आणि व्यवस्थापित करा",
-                noBookings: "अद्याप बुकिंग नाहीत",
-                noBookingsDesc: "येथे पाहण्यासाठी तुमची पहिली सेवा बुक करा",
-                pleaseLogin: "कृपया लॉगिन करा",
-                pleaseLoginDesc: "तुमची बुकिंग पाहण्यासाठी लॉगिन करा",
-                bookingId: "बुकिंग",
-                service: "सेवा",
-                status: "स्थिती",
-                amount: "रक्कम",
-                address: "पत्ता",
-                instructions: "सूचना"
-            }्ट आवश्यकता किंवा प्राधान्ये...",
                 confirmBooking: "बुकिंगची पुष्टी करा",
                 back: "मागे",
                 next: "पुढे",
@@ -1799,7 +1606,6 @@
                 mr: 'मराठी'
             };
             document.getElementById('currentLanguage').textContent = languageNames[lang];
-            document.getElementById('mobileCurrentLanguage').textContent = languageNames[lang];
 
             // Update active state
             document.querySelectorAll('.language-option').forEach(option => {
@@ -1814,63 +1620,6 @@
 
             // Save preference
             localStorage.setItem('preferredLanguage', lang);
-        };
-
-        window.changeLanguageMobile = function(lang) {
-            currentLanguage = lang;
-            
-            // Update UI
-            document.querySelectorAll('[data-i18n]').forEach(element => {
-                const key = element.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-
-            // Update language display
-            const languageNames = {
-                en: 'English',
-                hi: 'हिन्दी',
-                bn: 'বাংলা',
-                ta: 'தமிழ்',
-                te: 'తెలుగు',
-                mr: 'मराठी'
-            };
-            document.getElementById('currentLanguage').textContent = languageNames[lang];
-            document.getElementById('mobileCurrentLanguage').textContent = languageNames[lang];
-
-            // Update active state in desktop
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('active');
-                }
-            });
-
-            // Update active state in mobile modal
-            document.querySelectorAll('.mobile-lang-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('active');
-                }
-            });
-
-            // Close mobile modal
-            closeMobileLanguageSelector();
-            closeMobileMenu();
-
-            // Save preference
-            localStorage.setItem('preferredLanguage', lang);
-        };
-
-        window.showMobileLanguageSelector = function() {
-            document.getElementById('mobileLanguageModal').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        window.closeMobileLanguageSelector = function() {
-            document.getElementById('mobileLanguageModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
         };
 
         // Close dropdown when clicking outside
@@ -2447,11 +2196,11 @@
                 const bookingsRef = ref(database, 'bookings');
                 await push(bookingsRef, bookingPayload);
 
-                showAlert('🎉 Booking confirmed successfully! Our agent will contact you soon.', 'success');
+                showAlert('🎉 Booking confirmed successfully!', 'success');
                 
                 setTimeout(() => {
                     window.location.reload();
-                }, 3000);
+                }, 2000);
             } catch (error) {
                 console.error('Error creating booking:', error);
                 showAlert('Failed to create booking. Please try again.', 'error');
